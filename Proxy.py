@@ -19,17 +19,22 @@ class Ui_infoview(object):
         infoview.setTabPosition(0)
         infoview.setTabShape(QtWidgets.QTabWidget.Rounded)
         infoview.setIconSize(QtCore.QSize(40, 30))
+
+
         self.information = QtWidgets.QWidget()
-        self.information.setEnabled(False)
+        self.information.setEnabled(True)
         self.information.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         self.information.setObjectName("information")
+
         self.widget_left = QtWidgets.QWidget(self.information)
         self.widget_left.setGeometry(QtCore.QRect(20, 30, 331, 431))
         self.widget_left.setStyleSheet("background-color: rgb(240, 255, 255);")
         self.widget_left.setObjectName("widget_left")
+
         self.label_15 = QtWidgets.QLabel(self.widget_left)
         self.label_15.setGeometry(QtCore.QRect(10, 90, 121, 16))
         self.label_15.setObjectName("label_15")
+
         self.username = QtWidgets.QLineEdit(self.widget_left)
         self.username.setGeometry(QtCore.QRect(10, 110, 300, 30))
         self.username.setObjectName("username")
@@ -365,7 +370,7 @@ class Ui_infoview(object):
     def retranslateUi(self, infoview):
         _translate = QtCore.QCoreApplication.translate
         infoview.setWindowTitle(_translate("infoview", "TabWidget"))
-        self.label_15.setText(_translate("infoview", "<html><head/><body><p><span style=\" font-weight:600;\">用户名（可编辑）</span></p></body></html>"))
+        self.label_15.setText(_translate("infoview", "用户名（可编辑）"))
         self.label_16.setText(_translate("infoview", "UUID"))
         self.label_17.setText(_translate("infoview", "公钥"))
         self.reset_btn.setText(_translate("infoview", "重置密钥"))
@@ -375,7 +380,7 @@ class Ui_infoview(object):
         self.label_21.setText(_translate("infoview", "其他信息："))
         self.new_btn.setText(_translate("infoview", "新建用户"))
         infoview.setTabText(infoview.indexOf(self.information), _translate("infoview", "信息"))
-        self.label_8.setText(_translate("infoview", "<html><head/><body><p><span style=\" font-weight:600;\">签名人</span></p></body></html>"))
+        self.label_8.setText(_translate("infoview", "签名人"))
         self.label_9.setText(_translate("infoview", "选择签名文件"))
         self.label_10.setText(_translate("infoview", "签名后文件"))
         self.excu_btn.setText(_translate("infoview", "执行签名"))
@@ -388,8 +393,8 @@ class Ui_infoview(object):
         self.label_6.setText(_translate("infoview", "时间戳："))
         self.label_7.setText(_translate("infoview", "签名是否有效："))
         infoview.setTabText(infoview.indexOf(self.verify), _translate("infoview", "校验"))
-        self.label_11.setText(_translate("infoview", "<html><head/><body><p>代理客户</p></body></html>"))
-        self.label_14.setText(_translate("infoview", "<html><head/><body><p><span style=\" font-weight:600;\">授权列表</span></p></body></html>"))
+        self.label_11.setText(_translate("infoview", "代理客户"))
+        self.label_14.setText(_translate("infoview", "授权列表"))
         self.newproxy_btn.setText(_translate("infoview", "新建代理"))
         self.changeremark_btn.setText(_translate("infoview", "更改备注"))
         self.cancleauthorize_btn.setText(_translate("infoview", "撤销授权"))
@@ -398,4 +403,3 @@ class Ui_infoview(object):
         self.agent_uuid_3.setText(_translate("infoview", "授权时间："))
         self.label_23.setText(_translate("infoview", "注销时间："))
         infoview.setTabText(infoview.indexOf(self.proxy), _translate("infoview", "代理"))
-
