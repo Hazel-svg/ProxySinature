@@ -14,7 +14,7 @@ class myProxy(Proxy.Ui_infoview):
         self.new_btn.clicked.connect(self.on_new_btn_clicked)
         self.excu_btn.clicked.connect(self.on_excu_btn_clicked)
         self.newproxy_btn.clicked.connect(self.on_newproxy_btn_clicked)
-        self.cancleauthorize_btn_btn.clicked.connect(self.on_cancleauthorize_btn_clicked)
+        self.cancleauthorize_btn.clicked.connect(self.on_cancleauthorize_btn_clicked)
 
     def on_reset_btn_clicked(self):                                          #--------------------重置密钥
         Form_verify = QtWidgets.QDialog()
@@ -54,7 +54,7 @@ class myProxy(Proxy.Ui_infoview):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     Form = QtWidgets.QTabWidget()
-    window = Proxy.Ui_infoview()
-    window.setupUi(Form)
+    window = myProxy(Form)
+    # window.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
