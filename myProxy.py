@@ -10,11 +10,11 @@ class myProxy(Proxy.Ui_infoview):
     def __init__(self,proxy):
         super().setupUi(proxy)
         # 信号连接到指定槽
-        self.reset_btn.clicked.connect(self.on_reset_btn_clicked)
-        self.new_btn.clicked.connect(self.on_new_btn_clicked)
+        self.btn_reset.clicked.connect(self.on_reset_btn_clicked)
+        self.btn_createUser.clicked.connect(self.on_new_btn_clicked)
         self.excu_btn.clicked.connect(self.on_excu_btn_clicked)
-        self.newproxy_btn.clicked.connect(self.on_newproxy_btn_clicked)
-        self.cancleauthorize_btn.clicked.connect(self.on_cancleauthorize_btn_clicked)
+        # self.newproxy_btn.clicked.connect(self.on_newproxy_btn_clicked)
+        # self.cancleauthorize_btn.clicked.connect(self.on_cancleauthorize_btn_clicked)
 
     def on_reset_btn_clicked(self):                                          #--------------------重置密钥
         Form_verify = QtWidgets.QDialog()

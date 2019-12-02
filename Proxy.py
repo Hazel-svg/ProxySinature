@@ -20,7 +20,7 @@ class Ui_infoview(object):
         infoview.setTabShape(QtWidgets.QTabWidget.Rounded)
         infoview.setIconSize(QtCore.QSize(40, 30))
         self.information = QtWidgets.QWidget()
-        self.information.setEnabled(False)
+        self.information.setEnabled(True)
         self.information.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         self.information.setObjectName("information")
         self.widget_left_info = QtWidgets.QWidget(self.information)
