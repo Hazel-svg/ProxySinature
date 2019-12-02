@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="QDialogButtonBox" name="btnbox_signverify">
    <property name="geometry">
     <rect>
      <x>-60</x>
@@ -29,7 +29,7 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="label_signverify">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -42,7 +42,7 @@
     <string>请在下方输入您生成密钥时的口令以验证身份</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="label_password">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -55,7 +55,7 @@
     <string>口令：</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="SignVerifyInput">
+  <widget class="QLineEdit" name="input_signverify">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -69,7 +69,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>btnbox_signverify</sender>
    <signal>accepted()</signal>
    <receiver>signverify</receiver>
    <slot>accept()</slot>
@@ -85,7 +85,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>btnbox_signverify</sender>
    <signal>rejected()</signal>
    <receiver>signverify</receiver>
    <slot>reject()</slot>
