@@ -4,8 +4,8 @@
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import AES
 from Crypto.Cipher import PKCS1_v1_5 as PKCS_Cipher
-from Crypto.Signature import pkcs1_15 as PKCS_Sign
-from Crypto.Hash import SHA1,MD5
+from Crypto.Signature import PKCS1_v1_5 as PKCS_Sign
+from Crypto.Hash import SHA,MD5
 
 import uuid
 import json
@@ -70,7 +70,7 @@ def ReadKey():
             KeyPub=RSA.importKey(key_d['keypub'])
 
             key_header=key_d['uuid']+key_d['key']+key_d['keypub']
-            hash_header=SHA1.new(key_header.encode())
+            hash_header=SHA.new(key_header.encode())
 
             #验证签名
             cipher=PKCS_Sign.new(KeyPub)
@@ -114,9 +114,9 @@ def GenKey():
     ##计算私钥头摘要
     key_header=key_d['uuid']+key_d['key']+key_d['keypub']
     #key_header=str(key_d).encode()
-    #sha=hashlib.sha1()
+    #sha=hashlib.SHA()
     #sha.update(key_header)
-    hash_header=SHA1.new(key_header.encode())
+    hash_header=SHA.new(key_header.encode())
 
     ##使用私钥签名
     sign=PKCS_Sign.new(rsa)

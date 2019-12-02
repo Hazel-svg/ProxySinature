@@ -1,9 +1,6 @@
 # !/usr/bin/env python3
 
-from Crypto.PublicKey import RSA
-from Crypto.Cipher import PKCS1_v1_5 as PKCS_Cipher
-from Crypto.Signature import pkcs1_15 as PKCS_Sign
-from Crypto.Hash import SHA1
+
 
 import base64
 import json

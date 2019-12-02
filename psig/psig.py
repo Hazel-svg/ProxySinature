@@ -2,9 +2,8 @@
 # 本文件为主进程文件
 
 from Crypto.PublicKey import RSA
-from Crypto.Cipher import PKCS1_v1_5 as PKCS_Cipher
-from Crypto.Signature import pkcs1_15 as PKCS_Sign
-from Crypto.Hash import SHA1
+from Crypto.Signature import PKCS1_v1_5 as PKCS_Sign
+from Crypto.Hash import SHA
 
 import base64
 import time
@@ -49,16 +48,16 @@ def Signature(filename,signame,ouuid):
 
     try:
         f=open(filename,'rb')
-        Hash=SHA1.new(f.read())
+        Hash=SHA.new(f.read())
         f.close()
         sig_d=dict()
         sig_d['hash']=Hash.hexdigest()
         sig_d['time']=str(time.time())
         sig_d['ouuid']=ouuid
         sig_d['suuid']=suuid
-        #sig=libSign.Sign(RSA.importKey(key),SHA1.new(str(sig_d['hash']+sig_d['time']+sig_d['ouuid']+sig_d['suuid']).encode()))
+        #sig=libSign.Sign(RSA.importKey(key),SHA.new(str(sig_d['hash']+sig_d['time']+sig_d['ouuid']+sig_d['suuid']).encode()))
         cipher=PKCS_Sign.new(RSA.importKey(key))
-        sig=cipher.sign(SHA1.new(str(sig_d['hash']+sig_d['time']+sig_d['ouuid']+sig_d['suuid']).encode()))
+        sig=cipher.sign(SHA.new(str(sig_d['hash']+sig_d['time']+sig_d['ouuid']+sig_d['suuid']).encode()))
         sig_d['sig']=str(base64.b64encode(sig),encoding='utf-8')
         with open(signame,'w') as sig_f:
             json.dump(sig_d,sig_f)
@@ -72,7 +71,7 @@ def Verify(filename,signame,sock):
     '''签名验证函数'''
     try:
         with open(filename,'rb') as f:
-            Hash=SHA1.new(f.read())
+            Hash=SHA.new(f.read())
         with open(signame,'r') as sig_f:
             sig_d=json.load(sig_f)
     except IOError:
@@ -109,7 +108,7 @@ def Verify(filename,signame,sock):
         KeyPub=Siger['keypub']
         try:
             cipher=PKCS_Sign.new(RSA.importKey(KeyPub))
-            cipher.verify(SHA1.new(str(sig_d['hash']+sig_d['time']+sig_d['ouuid']+sig_d['suuid']).encode()),base64.b64decode(sig_d['sig']))
+            cipher.verify(SHA.new(str(sig_d['hash']+sig_d['time']+sig_d['ouuid']+sig_d['suuid']).encode()),base64.b64decode(sig_d['sig']))
         except (ValueError, TypeError):
             return 0x4F04
     else:
