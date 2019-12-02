@@ -26,7 +26,7 @@
    <enum>QTabWidget::Rounded</enum>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>3</number>
   </property>
   <property name="iconSize">
    <size>
@@ -102,7 +102,7 @@
       <string>UUID</string>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="input_UUID">
+    <widget class="QTextBrowser" name="text_UUID">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -131,7 +131,7 @@
       <string>公钥</string>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="input_publickey">
+    <widget class="QTextBrowser" name="text_infopublickey">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -189,7 +189,7 @@
       <string>版本号：</string>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="version">
+    <widget class="QTextBrowser" name="text_version">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -238,7 +238,7 @@
       <string>其他信息：</string>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="input_author">
+    <widget class="QTextBrowser" name="text_author">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -248,7 +248,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="workdirectory">
+    <widget class="QTextBrowser" name="text_workdirectory">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -258,7 +258,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="otherinfo">
+    <widget class="QTextBrowser" name="text_otherinfo">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -325,7 +325,7 @@
     <property name="styleSheet">
      <string notr="true">background-color: rgb(240, 255, 255);</string>
     </property>
-    <widget class="QLabel" name="label_8">
+    <widget class="QLabel" name="label_signer">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -338,7 +338,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;签名人&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_9">
+    <widget class="QLabel" name="label_choosefile">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -354,10 +354,10 @@
       </font>
      </property>
      <property name="text">
-      <string>选择签名文件</string>
+      <string>选择文件</string>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="signfile">
+    <widget class="QTextBrowser" name="text_choosefile">
      <property name="geometry">
       <rect>
        <x>9</x>
@@ -367,7 +367,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="label_10">
+    <widget class="QLabel" name="lable_createsign">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -383,10 +383,10 @@
       </font>
      </property>
      <property name="text">
-      <string>签名后文件</string>
+      <string>生成签名</string>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="signedfile">
+    <widget class="QTextBrowser" name="text_createfile">
      <property name="geometry">
       <rect>
        <x>9</x>
@@ -396,7 +396,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QComboBox" name="signer">
+    <widget class="QComboBox" name="combo_signer">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -428,7 +428,7 @@
       <string>执行签名</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="openfile_btn">
+    <widget class="QPushButton" name="btn_choosefile">
      <property name="geometry">
       <rect>
        <x>120</x>
@@ -454,7 +454,7 @@
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="defyfile_btn">
+    <widget class="QPushButton" name="btn_createfile">
      <property name="geometry">
       <rect>
        <x>120</x>
@@ -493,7 +493,7 @@
     <property name="styleSheet">
      <string notr="true">background-color: rgb(240, 255, 255);</string>
     </property>
-    <widget class="QTextBrowser" name="textBrowser">
+    <widget class="QTextBrowser" name="text_sign">
      <property name="geometry">
       <rect>
        <x>70</x>
@@ -511,7 +511,7 @@
      <normaloff>C:/Users/zhy/.designer/backup/Resources/verify.png</normaloff>C:/Users/zhy/.designer/backup/Resources/verify.png</iconset>
    </attribute>
    <attribute name="title">
-    <string>校验</string>
+    <string>验证</string>
    </attribute>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
@@ -519,7 +519,7 @@
       <property name="styleSheet">
        <string notr="true">background-color: rgb(240, 255, 255);</string>
       </property>
-      <widget class="QLabel" name="label_12">
+      <widget class="QLabel" name="label_verifyfile">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -535,10 +535,10 @@
         </font>
        </property>
        <property name="text">
-        <string>校验文件名</string>
+        <string>验证文件名</string>
        </property>
       </widget>
-      <widget class="QTextBrowser" name="UUID_4">
+      <widget class="QTextBrowser" name="text_verifyfile">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -548,7 +548,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLabel" name="label_13">
+      <widget class="QLabel" name="label_signfile">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -567,7 +567,7 @@
         <string>签名文件</string>
        </property>
       </widget>
-      <widget class="QTextBrowser" name="publickey_4">
+      <widget class="QTextBrowser" name="text_signfile">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -577,7 +577,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QPushButton" name="verifysign_btn">
+      <widget class="QPushButton" name="btn_verifysign">
        <property name="geometry">
         <rect>
          <x>100</x>
@@ -596,10 +596,10 @@
         <string notr="true">background-color: rgb(85, 170, 255);</string>
        </property>
        <property name="text">
-        <string>校验签名</string>
+        <string>验证签名</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="verifyfile_btn">
+      <widget class="QPushButton" name="btn_verifyfile">
        <property name="geometry">
         <rect>
          <x>90</x>
@@ -651,128 +651,134 @@
         </size>
        </property>
       </widget>
-     </widget>
-    </item>
-    <item>
-     <widget class="QWidget" name="widget_right" native="true">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(240, 255, 255);</string>
-      </property>
-      <widget class="QLabel" name="label_4">
+      <widget class="QWidget" name="widget_right" native="true">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>90</y>
-         <width>111</width>
-         <height>16</height>
+         <x>360</x>
+         <y>0</y>
+         <width>352</width>
+         <height>470</height>
         </rect>
        </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(240, 255, 255);</string>
        </property>
-       <property name="text">
-        <string>原签名人UUID:</string>
-       </property>
-      </widget>
-      <widget class="QTextBrowser" name="orisigner_uuid">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>110</y>
-         <width>321</width>
-         <height>31</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="agent_uuid">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>150</y>
-         <width>101</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>代理人UUID:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_6">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>210</y>
-         <width>72</width>
-         <height>15</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>时间戳：</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_7">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>270</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>签名是否有效：</string>
-       </property>
-      </widget>
-      <widget class="QTextBrowser" name="textBrowser_4">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>170</y>
-         <width>321</width>
-         <height>31</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QTextBrowser" name="timestamp">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>230</y>
-         <width>321</width>
-         <height>31</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QTextBrowser" name="signeffective">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>290</y>
-         <width>321</width>
-         <height>31</height>
-        </rect>
-       </property>
+       <widget class="QLabel" name="lable_signerUuid">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>90</y>
+          <width>111</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>原签名人UUID:</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="text_signerUuid">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>110</y>
+          <width>321</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_agentUuid">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>150</y>
+          <width>101</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>代理人UUID:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_time">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>210</y>
+          <width>72</width>
+          <height>15</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>时间戳：</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_signeffective">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>270</y>
+          <width>111</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>签名是否有效：</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="text_agentUuid">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>170</y>
+          <width>321</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="text_time">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>230</y>
+          <width>321</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="text_signeffective">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>290</y>
+          <width>321</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>
@@ -798,7 +804,7 @@
     <property name="styleSheet">
      <string notr="true">background-color: rgb(240, 255, 255);</string>
     </property>
-    <widget class="QLabel" name="label_11">
+    <widget class="QLabel" name="label_clientlist">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -811,7 +817,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;代理客户&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="agentclient">
+    <widget class="QComboBox" name="combo_clientlist">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -821,7 +827,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="label_14">
+    <widget class="QLabel" name="label_authorizelist">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -834,7 +840,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;授权列表&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="authorizelist">
+    <widget class="QComboBox" name="combo_authorizelist">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -844,7 +850,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="newproxy_btn">
+    <widget class="QPushButton" name="btn_newproxy">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -879,43 +885,11 @@
     <property name="styleSheet">
      <string notr="true">background-color: rgb(240, 255, 255);</string>
     </property>
-    <widget class="QTextBrowser" name="textBrowser_12">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>60</y>
-       <width>291</width>
-       <height>261</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="changeremark_btn">
+    <widget class="QPushButton" name="btn_cancleauthorize">
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>340</y>
-       <width>111</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(85, 170, 255);</string>
-     </property>
-     <property name="text">
-      <string>更改备注</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="cancleauthorize_btn">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>380</y>
+       <y>240</y>
        <width>111</width>
        <height>31</height>
       </rect>
@@ -933,26 +907,7 @@
       <string>撤销授权</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_22">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>200</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>是否有效：</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="uuid">
+    <widget class="QLabel" name="lable_uuid">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -971,7 +926,7 @@
       <string>UUID:</string>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="user_uuid">
+    <widget class="QTextBrowser" name="text_uuid">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -981,17 +936,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="effective">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>220</y>
-       <width>261</width>
-       <height>31</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextBrowser" name="authorizetime">
+    <widget class="QTextBrowser" name="text_proxypublickey">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -1001,7 +946,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="agent_uuid_3">
+    <widget class="QLabel" name="lable_publickey">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -1017,36 +962,7 @@
       </font>
      </property>
      <property name="text">
-      <string>授权时间：</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_23">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>260</y>
-       <width>81</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>注销时间：</string>
-     </property>
-    </widget>
-    <widget class="QTextBrowser" name="withdrawtime">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>280</y>
-       <width>261</width>
-       <height>31</height>
-      </rect>
+      <string>公钥：</string>
      </property>
     </widget>
    </widget>
