@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="QDialogButtonBox" name="btnbox_infonew">
    <property name="geometry">
     <rect>
      <x>-60</x>
@@ -29,7 +29,7 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="label_infonew">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -42,7 +42,7 @@
     <string>请输入您的口令以新建一个属于您的密钥：</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="InfoNewInput">
+  <widget class="QLineEdit" name="input_infonew">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -56,7 +56,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>btnbox_infonew</sender>
    <signal>accepted()</signal>
    <receiver>infonew</receiver>
    <slot>accept()</slot>
@@ -72,7 +72,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>btnbox_infonew</sender>
    <signal>rejected()</signal>
    <receiver>infonew</receiver>
    <slot>reject()</slot>
