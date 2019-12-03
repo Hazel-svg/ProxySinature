@@ -1,11 +1,13 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
-from InfoNew import Ui_infonew
-from InfoVerify import Ui_infoverify
-from SignVerify import Ui_signverify
-from ProxyCancleVerify import Ui_ProxyCancleVerify
-from ProxyNewVerify import Ui_ProxyNewVerify
-import Proxy, sys
+from uiFromQt.InfoNew import Ui_infonew
+from uiFromQt.InfoVerify import Ui_infoverify
+from uiFromQt.SignVerify import Ui_signverify
+from uiFromQt.ProxyCancleVerify import Ui_ProxyCancleVerify
+from uiFromQt.ProxyNewVerify import Ui_ProxyNewVerify
+import sys
+from uiFromQt import Proxy
+from psig.libKey import GenKey
 class myProxy(Proxy.Ui_infoview):
     def __init__(self,proxy):
         super().setupUi(proxy)
@@ -16,7 +18,8 @@ class myProxy(Proxy.Ui_infoview):
         # self.newproxy_btn.clicked.connect(self.on_newproxy_btn_clicked)
         # self.cancleauthorize_btn.clicked.connect(self.on_cancleauthorize_btn_clicked)
 
-    def on_reset_btn_clicked(self):                                          #--------------------重置密钥
+    def on_reset_btn_clicked(self):                                         #--------------------重置密钥
+
         Form_verify = QtWidgets.QDialog()
         ui = Ui_infoverify()
         ui.setupUi(Form_verify)
@@ -24,11 +27,21 @@ class myProxy(Proxy.Ui_infoview):
         Form_verify.exec_()
 
     def on_new_btn_clicked(self):                                            #---------------------新建用户
+        '''生成一个密钥并在客户端显示相关信息'''
         Form_new = QtWidgets.QDialog()
         ui = Ui_infonew()
         ui.setupUi(Form_new)
         Form_new.show()
         Form_new.exec_()
+
+        # gen key
+        passwd = ui.input_infonew.text().encode()  # 口令
+        key_d = GenKey(passwd)
+
+        # show key
+        self.text_UUID.setText(key_d['uuid'])
+        self.text_infopublickey.setText(key_d['keypub'])
+
 
     def on_excu_btn_clicked(self):                                            #--------------------执行签名验证
         Form_excu = QtWidgets.QDialog()
@@ -37,7 +50,7 @@ class myProxy(Proxy.Ui_infoview):
         Form_excu.show()
         Form_excu.exec_()
 
-    def on_newproxy_btn_clicked(self):                                            #-----------------新建代理验证
+    def on_newproxy_btn_clicked(self):                                        #-----------------新建代理验证
         Form_newproxy = QtWidgets.QDialog()
         ui = Ui_ProxyNewVerify()
         ui.setupUi(Form_newproxy)

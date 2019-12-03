@@ -1,5 +1,6 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-import ProxyCancleVerify
+from uiFromQt import ProxyCancleVerify
+
+
 class myProxyCancleVerify(ProxyCancleVerify.Ui_ProxyCancleVerify):
     def __init__(self,ProxyCancleVerify):
         super().setupUi(ProxyCancleVerify)
