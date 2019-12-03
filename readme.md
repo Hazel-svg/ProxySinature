@@ -1,6 +1,6 @@
 # 课程设计
 
-## with python3.7
+## with python==3.7 pyqt==5.9.2
 
 ##接口设计（以下交互接口封装在api.py）
 ### 信息TAB
