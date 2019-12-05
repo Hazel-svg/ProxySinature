@@ -30,7 +30,7 @@ class myProxy(Proxy.Ui_infoview):
         '''选择需要签名的原文件'''
         filename = QFileDialog.getOpenFileName()[0]
         curdir = os.getcwd().replace("\\", "/")
-        signame = f'{curdir}/{filename.split("/")[-1]}.sig'
+        signame = f'{curdir}/{filename.split("/")[-1]}.psig'
         self.text_choosefile.setText(filename)
         self.text_createfile.setText(signame)
 
