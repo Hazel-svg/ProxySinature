@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'Proxy.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_infoview(object):
     def setupUi(self, infoview):
@@ -20,7 +22,7 @@ class Ui_infoview(object):
         infoview.setTabShape(QtWidgets.QTabWidget.Rounded)
         infoview.setIconSize(QtCore.QSize(40, 30))
         self.information = QtWidgets.QWidget()
-        self.information.setEnabled(True)
+        self.information.setEnabled(False)
         self.information.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         self.information.setObjectName("information")
         self.widget_left_info = QtWidgets.QWidget(self.information)
@@ -102,7 +104,7 @@ class Ui_infoview(object):
         self.btn_createUser.setStyleSheet("background-color: rgb(85, 170, 255);")
         self.btn_createUser.setObjectName("btn_createUser")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("./Resources/information.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("C:/Users/zhy/.designer/backup/Resources/information.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         infoview.addTab(self.information, icon, "")
         self.signature = QtWidgets.QWidget()
         self.signature.setObjectName("signature")
@@ -149,7 +151,7 @@ class Ui_infoview(object):
         self.btn_choosefile.setStyleSheet("border-color: rgb(240, 255, 255);")
         self.btn_choosefile.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("./Resources/file.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("C:/Users/zhy/.designer/backup/Resources/file.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_choosefile.setIcon(icon1)
         self.btn_choosefile.setIconSize(QtCore.QSize(20, 20))
         self.btn_choosefile.setObjectName("btn_choosefile")
@@ -168,7 +170,7 @@ class Ui_infoview(object):
         self.text_sign.setGeometry(QtCore.QRect(70, 70, 211, 271))
         self.text_sign.setObjectName("text_sign")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("./Resources/signature.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("C:/Users/zhy/.designer/backup/Resources/signature.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         infoview.addTab(self.signature, icon2, "")
         self.verify = QtWidgets.QWidget()
         self.verify.setObjectName("verify")
@@ -265,7 +267,7 @@ class Ui_infoview(object):
         self.text_signeffective.setObjectName("text_signeffective")
         self.horizontalLayout.addWidget(self.widget_center_4)
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("./Resources/verify.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap("C:/Users/zhy/.designer/backup/Resources/verify.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         infoview.addTab(self.verify, icon3, "")
         self.proxy = QtWidgets.QWidget()
         self.proxy.setObjectName("proxy")
@@ -326,7 +328,7 @@ class Ui_infoview(object):
         self.lable_publickey.setFont(font)
         self.lable_publickey.setObjectName("lable_publickey")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("./Resources/proxy.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap("C:/Users/zhy/.designer/backup/Resources/proxy.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         infoview.addTab(self.proxy, icon4, "")
 
         self.retranslateUi(infoview)
@@ -366,4 +368,3 @@ class Ui_infoview(object):
         self.lable_uuid.setText(_translate("infoview", "UUID:"))
         self.lable_publickey.setText(_translate("infoview", "公钥："))
         infoview.setTabText(infoview.indexOf(self.proxy), _translate("infoview", "代理"))
-
