@@ -32,6 +32,11 @@ GetUserList() => userList(所有用户uuid的列表)
 Signature(filename,signame,ouuid) => status_code
 ```
 
+3.获取代理人
+```
+GetCurrentAgent() => Agent(uuid)
+```
+
 ### 验证
 1. 验证文件签名是否正确
 ```
@@ -47,4 +52,8 @@ Verify(filename,signame) => bool
 2. 撤销授权
 ```python
 # 待定
+```
+3.获取公钥
+```
+getPublicKeyByUuid => pubkey:str
 ```
