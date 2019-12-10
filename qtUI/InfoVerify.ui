@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="btnbox_infoverify">
    <property name="geometry">
     <rect>
-     <x>-60</x>
-     <y>150</y>
+     <x>-50</x>
+     <y>240</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -63,6 +63,29 @@
    </property>
    <property name="text">
     <string>原口令：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_password_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>61</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>新口令：</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="input_infoverify_2">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>130</y>
+     <width>271</width>
+     <height>31</height>
+    </rect>
    </property>
   </widget>
  </widget>
