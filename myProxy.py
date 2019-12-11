@@ -50,6 +50,7 @@ class myProxy(Proxy.Ui_infoview):
         self.cl = ClientList(self.key)
         self.al = AgentList(self.key)
         self._loadUserList()  # 加载下拉选择框
+        self.sock = Sock()
         self.ShowInfo()
 
     '''信息页面'''
@@ -97,13 +98,17 @@ class myProxy(Proxy.Ui_infoview):
     def on_btn_choosefile_clicked(self):
         '''选择需要签名的原文件'''
         filename = QFileDialog.getOpenFileName()[0]
+        '''
         curdir = os.getcwd().replace("\\", "/")
-        sigdir = f'{curdir}/sig/'
+        sigdir = f'{curdir}/'
         if not os.path.exists(sigdir):
             os.mkdir(sigdir)
-        signame = f'{curdir}/sig/{filename.split("/")[-1]}.psig'
+        signame = f'{curdir}/{filename.split("/")[-1]}.psig'
+        '''
+        signame = filename+'.psig'
         self.text_choosefile.setText(filename)
         self.text_createfile.setText(signame)
+
 
     def on_excu_btn_clicked(self):  # --------------------执行签名验证
         Form_excu = QtWidgets.QDialog()
@@ -135,10 +140,10 @@ class myProxy(Proxy.Ui_infoview):
         '''选择需要签名的原文件'''
         filename = QFileDialog.getOpenFileName()[0]
         curdir = os.getcwd().replace("\\", "/")
-        sigdir = f'{curdir}/sig/'
+        sigdir = f'{curdir}/'
         if not os.path.exists(sigdir):
             os.mkdir(sigdir)
-        signame = f'{curdir}/sig/{filename.split("/")[-1]}.psig'
+        signame = f'{curdir}/{filename.split("/")[-1]}.psig'
         self.text_verifyfile.setText(filename)
         self.text_signfile.setText(signame)
 
