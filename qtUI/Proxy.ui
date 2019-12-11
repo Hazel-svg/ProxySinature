@@ -43,7 +43,7 @@
    </property>
    <attribute name="icon">
     <iconset>
-     <normaloff>C:/Users/zhy/.designer/backup/Resources/information.png</normaloff>C:/Users/zhy/.designer/backup/Resources/information.png</iconset>
+     <normaloff>./Resources/information.png</normaloff>./Resources/information.png</iconset>
    </attribute>
    <attribute name="title">
     <string>信息</string>
@@ -227,7 +227,7 @@
   <widget class="QWidget" name="signature">
    <attribute name="icon">
     <iconset>
-     <normaloff>C:/Users/zhy/.designer/backup/Resources/signature.png</normaloff>C:/Users/zhy/.designer/backup/Resources/signature.png</iconset>
+     <normaloff>./Resources/signature.png</normaloff>./Resources/signature.png</iconset>
    </attribute>
    <attribute name="title">
     <string>签名</string>
@@ -364,7 +364,7 @@
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>C:/Users/zhy/.designer/backup/Resources/file.png</normaloff>C:/Users/zhy/.designer/backup/Resources/file.png</iconset>
+       <normaloff>./Resources/file.png</normaloff>./Resources/file.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -507,7 +507,7 @@
   <widget class="QWidget" name="verify">
    <attribute name="icon">
     <iconset>
-     <normaloff>C:/Users/zhy/.designer/backup/Resources/verify.png</normaloff>C:/Users/zhy/.designer/backup/Resources/verify.png</iconset>
+     <normaloff>./Resources/verify.png</normaloff>./Resources/verify.png</iconset>
    </attribute>
    <attribute name="title">
     <string>验证</string>
@@ -615,7 +615,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>C:/Users/zhy/.designer/backup/Resources/file.png</normaloff>C:/Users/zhy/.designer/backup/Resources/file.png</iconset>
+         <normaloff>./Resources/file.png</normaloff>./Resources/file.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -641,7 +641,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>C:/Users/zhy/.designer/backup/Resources/file.png</normaloff>C:/Users/zhy/.designer/backup/Resources/file.png</iconset>
+         <normaloff>./Resources/file.png</normaloff>./Resources/file.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -786,7 +786,7 @@
   <widget class="QWidget" name="proxy">
    <attribute name="icon">
     <iconset>
-     <normaloff>C:/Users/zhy/.designer/backup/Resources/proxy.png</normaloff>C:/Users/zhy/.designer/backup/Resources/proxy.png</iconset>
+     <normaloff>./Resources/proxy.png</normaloff>./Resources/proxy.png</iconset>
    </attribute>
    <attribute name="title">
     <string>代理</string>

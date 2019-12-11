@@ -113,7 +113,7 @@ class myProxy(Proxy.Ui_infoview):
         Form_excu.exec_()
 
         self.text_signerUuid_2.setText(self.combo_signer.currentText())
-        self.text_agentUuid_2.setText(self.al.dit['uuid'])
+        self.text_agentUuid_2.setText(self.key.key['uuid'])
         self.text_time_2.setText(time.asctime())
 
         try:
