@@ -10,6 +10,7 @@ from uiFromQt import Proxy
 from psig.libPsig import *
 
 
+
 class myProxy(Proxy.Ui_infoview):
     def __init__(self, proxy):
         super().setupUi(proxy)
