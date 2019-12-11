@@ -120,8 +120,8 @@ class myProxy(Proxy.Ui_infoview):
             ret = self.key.Signature(self.text_choosefile.text(),
                                      self.text_createfile.text(),
                                      self.combo_signer.currentText(),
-                                     self.key.key['uuid'],
-                                     ui.input_signverify.text())
+                                     self.cl,
+                                     ui.input_signverify.text().encode())
         except:
             MSGBOX("签名程序执行异常！")
             self.text_signeffective_2.setText("签名异常")
