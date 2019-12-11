@@ -11,11 +11,11 @@ from psig.libPsig import *
 
 
 class myProxy(Proxy.Ui_infoview):
-    def __init__(self,proxy):
+    def __init__(self, proxy):
         super().setupUi(proxy)
         # 信号连接到指定槽
         self.btn_reset.clicked.connect(self.on_reset_btn_clicked)
-        self.btn_createUser.clicked.connect(self.on_new_btn_clicked)
+        #self.btn_createUser.clicked.connect(self.on_new_btn_clicked)
         self.excu_btn.clicked.connect(self.on_excu_btn_clicked)
         self.btn_choosefile.clicked.connect(self.on_btn_choosefile_clicked)
         self.btn_verifyfile.clicked.connect(self.on_btn_verifyfile_clicked)
@@ -23,17 +23,38 @@ class myProxy(Proxy.Ui_infoview):
         self.combo_authorizelist.currentIndexChanged.connect(self.on_select_auth)
         self.combo_clientlist.currentIndexChanged.connect(self.on_select_client)
         # self.btn_createfile.clicked.connect(self.on_btn_createfile_clicked)
-        # self.newproxy_btn.clicked.connect(self.on_newproxy_btn_clicked)
-        # self.cancleauthorize_btn.clicked.connect(self.on_cancleauthorize_btn_clicked)
+        self.btn_newproxy.clicked.connect(self.on_newproxy_btn_clicked)
+        self.btn_cancleauthorize.clicked.connect(self.on_cancleauthorize_btn_clicked)
+        t=ReadKey()
+        if not t:
+            # input
+            Form_new = QtWidgets.QDialog()
+            ui = Ui_infonew()
+            ui.setupUi(Form_new)
+            Form_new.show()
+            Form_new.exec_()
 
-        self.key = Key()
+            # gen key
+            passwd = ui.input_infonew.text().encode()  # 口令
+            self.key = Key(passwd=passwd)
+            self.key.GenKey(passwd)
+            self.text_UUID.setText(self.key.key['uuid'])
+            self.text_infopublickey.setText(self.key.key['keypub'])
+            self.text_workdirectory.setText(os.getcwd())
+            self._loadUserList()
+
+        else:
+            self.key=Key(key=t)
+        del t
+        self.cl = ClientList(self.key)
+        self.al = AgentList(self.key)
         self._loadUserList()  # 加载下拉选择框
         self.ShowInfo()
 
     '''信息页面'''
 
     def on_reset_btn_clicked(self):  # --------------------重置密钥
-        ''' 验证就密钥，重新输入口令生成新秘钥 '''
+        ''' 验证旧密钥，重新输入口令生成新密钥 '''
         Form_verify = QtWidgets.QDialog()
         ui = Ui_infoverify()
         ui.setupUi(Form_verify)
@@ -41,19 +62,19 @@ class myProxy(Proxy.Ui_infoview):
         Form_verify.exec_()
 
         oldpasswd = ui.input_infoverify.text().encode()
-        if not self.key.VerifyPasswd(oldpasswd):
+        newpasswd = ui.input_infoverify_2.text().encode()
+
+        ret =  self.key.Reset(oldpasswd, newpasswd)
+        if ret == False:
             MSGBOX("口令错误，验证失败！")
             return
-        newPassUi = Ui_infonew()
-        wgt = QtWidgets.QDialog()
-        newPassUi.setupUi(wgt)
-        wgt.show()
-        wgt.exec_()
-        newpasswd = newPassUi.input_infonew.text().encode()
-        self.key.Reset(oldpasswd, newpasswd)
+        else:
+            self.text_UUID.setText(self.key.key['uuid'])
+            self.text_infopublickey.setText(self.key.key['keypub'])
 
+    '''
     def on_new_btn_clicked(self):  # ---------------------新建用户
-        '''生成一个密钥并在客户端显示相关信息'''
+        
         Form_new = QtWidgets.QDialog()
         ui = Ui_infonew()
         ui.setupUi(Form_new)
@@ -69,7 +90,7 @@ class myProxy(Proxy.Ui_infoview):
         self.text_infopublickey.setText(key_d['keypub'])
         self.text_workdirectory.setText(os.getcwd())
         self._loadUserList()
-
+    '''
     '''签名页面'''
 
     def on_btn_choosefile_clicked(self):
@@ -91,13 +112,15 @@ class myProxy(Proxy.Ui_infoview):
         Form_excu.exec_()
 
         self.text_signerUuid_2.setText(self.combo_signer.currentText())
-        self.text_agentUuid_2.setText('default agent')
+        self.text_agentUuid_2.setText(self.al.dit['uuid'])
         self.text_time_2.setText(time.asctime())
 
         try:
             ret = self.key.Signature(self.text_choosefile.text(),
                                      self.text_createfile.text(),
-                                     self.combo_signer.currentText())
+                                     self.combo_signer.currentText(),
+                                     self.key.key['uuid'],
+                                     ui.input_signverify.text())
         except:
             MSGBOX("签名程序执行异常！")
             self.text_signeffective_2.setText("签名异常")
@@ -126,7 +149,7 @@ class myProxy(Proxy.Ui_infoview):
         Form_verifysign.exec_()
 
         self.text_signerUuid.setText(self.combo_signer.currentText())
-        self.text_agentUuid.setText('default agent')
+        self.text_agentUuid.setText(self.key.key['uuid'])
         self.text_time.setText(time.asctime())
 
         try:
@@ -150,10 +173,12 @@ class myProxy(Proxy.Ui_infoview):
 
     def on_select_auth(self):
         self.text_uuid.setText(self.combo_authorizelist.currentText())
-       # self.text_proxypublickey
+        self.text_proxypublickey.setText(self.al.user[self.combo_authorizelist.currentText()]['keypub'])
+
 
     def on_select_client(self):
         self.text_uuid.setText(self.combo_clientlist.currentText())
+        self.text_proxypublickey.setText(self.al.user[self.combo_authorizelist.currentText()]['keypub'])
 
     def on_cancleauthorize_btn_clicked(self):                                     #---------------------撤销授权验证
         Form_cancleauthorize= QtWidgets.QDialog()
@@ -198,6 +223,7 @@ def MSGBOX(msg: str):
 
 
 if __name__ == "__main__":
+
     app = QApplication(sys.argv)
     Form = QtWidgets.QTabWidget()
     window = myProxy(Form)

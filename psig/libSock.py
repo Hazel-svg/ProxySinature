@@ -1,94 +1,46 @@
-# !/usr/bin/env python3
-# 网络通信模块
+#!/usr/bin/env python3
 
 import socket
-import struct
+import threading
 import json
 
-from psig import init, libDbg
+from libMsg import *
+
 
 DBG=True
-
 BUF_SIZE=0x1024
+time_s=1562162425.652096 #2019年7月3日
 
-class package(object):
-    '''网络报文消息'''
+threads=[]
+#ip='10.6.64.99'
+ip='192.168.123.244'
+port=14145
 
-    def __init__(self,type=0,msg={}):
-        self.type=type
-        self.msg=msg
+class ClientHandle(object):
+    ''''''
+    def __init__(self,ip,port):
+        super().__init__()
+        self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        self.sock.connect((ip,port))
+        self.input=[self.sock]
+
+    def Send(self,data):
+        self.sock.sendall(data)
     
-    def pack(self,msg):
-        self.msg=msg
+    def Recv(self):
+        data=self.sock.recv(BUF_SIZE)
+        return data
 
 
-class type0(object):
-    '''重置密钥消息与生成密钥'''
-    def __init__(self,uuidNew,keypub,uuidOld=None):
-        super().__init__()
-        self.uuidNew=uuidNew
-        self.keypub=keypub
-        if uuidOld:
-            self.uuidOld=uuidOld
 
-
-class type10(object):
-    '''请求代理'''
-    def __init__(self,ouuid,suuid,nonce):
-        super().__init__()
-        self.ouuid=ouuid
-        self.suuid=suuid
-        self.nonce=nonce
-
-
-class type11(object):
-    '''请求应答'''
-    def __init__(self,ouuid,suuid,agree=False,keypub=None,nonce=None):
-        super().__init__()
-        self.ouuid=ouuid
-        self.suuid=suuid
-        self.agree=agree
-        if agree:
-            self.keypub=keypub
-            self.nonce=nonce
-
-
-class type100(object):
-    '''查询代理'''
-    def __init__(self,ouuid,suuid=None):
-        super().__init__()
-        self.ouuid=ouuid
-        if suuid:
-            self.suuid=suuid
-    
-
-class type101(object):
-    '''查询代理结果'''
-    def __init__(self,ouuid,btime,dtime,keypub,suuid=None):
-        super().__init__()
-        self.ouuid=ouuid
-        if suuid:
-            self.suuid=suuid
-        self.btime=btime
-        self.dtime=dtime
-        self.keypub=keypub
-        
-
-def pack2json(package):
-    return json.dumps(package.__dict__)
-
-def makemsg(type,msg):
-    pack = package(type,msg.__dict__)
-    return pack2json(pack)
-
-class ClientServer(object):
-    '''本地socket服务器'''
-    def __init__(self,host=init.host,port=init.port):
+class Sock(object):
+    '''本地socket服务'''
+    def __init__(self):
         super().__init__()
         try:
             self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             if DBG == False:
-                self.sock.connect((host,port))
+                self.sock.connect((ip,port))
             self.connected=True
             print('连接成功')
         except socket.error as e:
@@ -98,49 +50,65 @@ class ClientServer(object):
     def __del__(self):
         self.sock.close()
 
-    def send(self,msg):
+    def Send(self,pack:bytes):
         if DBG == False:
             if self.connected:
                 try:
-                    self.sock.sendall(msg.encode())
-                    return self.sock.recv(BUF_SIZE)
+                    self.sock.sendall(pack)
+                    return json.loads(self.sock.recv(BUF_SIZE))
                 except socket.error as e:
                     print(e)
             else:
                 return None
         else:
-            return libDbg.handle(msg)
-
-class AccountInfo(object):
-    '''账号信息'''
-    uuid=''
-    btime=0.0
-    dtime=0.0
-    keypub=''
-    def __init__(self):
-        super().__init__()
-        localkey=init.check()
-        self.uuid=localkey['uuid']
-        self.keypub=localkey['keypub']
-
+            return self.__handle__(pack)
     
+    def __parse__(self,pack:bytes):
+        pkg=json.loads(pack)
+        code=pkg['code']
+        msg=pkg['msg']
 
-def Select(UUID):
-    return AccountInfo()
-
-def SelectDeal(ouuid,suuid):
-    return AccountInfo()
-
-def Send(type,msg,sock:ClientServer):
-    res = sock.send(makemsg(type,msg))
-    return res
+        # 非代理请求消息(0b10, 0b11)直接返回
+        if code == 0b10:
+            pass
+        elif code == 0b11:
+            pass
+        else:
+            return pack
 
 
-if __name__=='__main__':
-    server=ClientServer()
-    key=init.check()
-    body=type100(key['uuid'])
-    pack=package(0b100,body.__dict__)
-    msg = pack2json(pack)
-    print(server.send(msg))
-    print('exit')
+    def __handle__(self,pack:bytes):
+        with open('key.pem','r') as key_f:
+            #key_d=pickle.load(key_f)
+            key=json.load(key_f)
+        pack=json.loads(pack)
+        code=pack['code']
+        msg=pack['msg']
+        
+        if code == 0b100:
+            if 'suuid' not in msg:
+                responce=Msg101(key['uuid'],time_s,0,key['keypub'])
+            else:
+                responce=Msg101(key['uuid'],time_s,0,key['keypub'],key['uuid'])
+            #pack=package(0b101,responce.__dict__)
+            return Package(0b101,responce).__dict__
+        return
+
+        if code == 0:
+            pass
+
+        if code == 0b10:
+            # 转发给代理人
+            pass
+
+        if code == 0b11:
+            pass
+
+# CLASS_SOCK_END
+
+
+if __name__ == "__main__":
+    sock=ClientHandle(ip,port)
+    send=threading.Thread(target=sock)
+    send.start()
+    pass

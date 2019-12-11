@@ -26,7 +26,7 @@
    <enum>QTabWidget::Rounded</enum>
   </property>
   <property name="currentIndex">
-   <number>1</number>
+   <number>0</number>
   </property>
   <property name="iconSize">
    <size>
@@ -52,7 +52,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>30</y>
+      <y>0</y>
       <width>331</width>
       <height>431</height>
      </rect>
@@ -145,7 +145,7 @@
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>30</y>
+      <y>0</y>
       <width>351</width>
       <height>431</height>
      </rect>
@@ -220,41 +220,6 @@
        <width>261</width>
        <height>51</height>
       </rect>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="widget_top_info" native="true">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>5</y>
-      <width>681</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <widget class="QPushButton" name="btn_createUser">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(85, 170, 255);</string>
-     </property>
-     <property name="text">
-      <string>新建用户</string>
      </property>
     </widget>
    </widget>
@@ -387,32 +352,6 @@
       <rect>
        <x>120</x>
        <y>140</y>
-       <width>21</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-color: rgb(240, 255, 255);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>C:/Users/zhy/.designer/backup/Resources/file.png</normaloff>C:/Users/zhy/.designer/backup/Resources/file.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>20</width>
-       <height>20</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btn_createfile">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>220</y>
        <width>21</width>
        <height>21</height>
       </rect>
