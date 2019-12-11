@@ -19,7 +19,7 @@ from psig.libMsg import *
 #from libSock import *
 
 BUF_SIZE=0x1024
-ip='192.168.123.244'
+ip='35.194.227.136'
 port=14145
 
 #query=None

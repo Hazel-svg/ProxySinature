@@ -25,9 +25,9 @@ class Ui_NewProxy(object):
         self.label_newproxyuuid = QtWidgets.QLabel(NewProxy)
         self.label_newproxyuuid.setGeometry(QtCore.QRect(20, 90, 41, 21))
         self.label_newproxyuuid.setObjectName("label_newproxyuuid")
-        self.input_proxynewverify = QtWidgets.QLineEdit(NewProxy)
-        self.input_proxynewverify.setGeometry(QtCore.QRect(60, 80, 291, 31))
-        self.input_proxynewverify.setObjectName("input_proxynewverify")
+        self.input_newproxy = QtWidgets.QLineEdit(NewProxy)
+        self.input_newproxy.setGeometry(QtCore.QRect(60, 80, 291, 31))
+        self.input_newproxy.setObjectName("input_newproxy")
 
         self.retranslateUi(NewProxy)
         self.buttonBox.accepted.connect(NewProxy.accept)

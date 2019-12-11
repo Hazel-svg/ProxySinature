@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NewProxy</class>
- <widget class="QDialog" name="NewProxy">
+ <class>ProxyCancleVerify</class>
+ <widget class="QDialog" name="ProxyCancleVerify">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,11 +13,11 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="QDialogButtonBox" name="btn_proxycancleverify">
    <property name="geometry">
     <rect>
-     <x>-60</x>
-     <y>140</y>
+     <x>-50</x>
+     <y>150</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -29,37 +29,37 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_newproxy">
+  <widget class="QLabel" name="label_proxycancleverify">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>50</x>
      <y>60</y>
      <width>301</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>输入新建代理的uuid</string>
+    <string>撤销授权需要口令以验证身份</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_newproxyuuid">
+  <widget class="QLabel" name="label_password">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>90</y>
      <width>41</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>uuid:</string>
+    <string>口令：</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="input_newproxy">
+  <widget class="QLineEdit" name="input_proxycancleverify">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>80</y>
+     <x>50</x>
+     <y>90</y>
      <width>291</width>
      <height>31</height>
     </rect>
@@ -69,9 +69,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>btn_proxycancleverify</sender>
    <signal>accepted()</signal>
-   <receiver>NewProxy</receiver>
+   <receiver>ProxyCancleVerify</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -85,9 +85,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>btn_proxycancleverify</sender>
    <signal>rejected()</signal>
-   <receiver>NewProxy</receiver>
+   <receiver>ProxyCancleVerify</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

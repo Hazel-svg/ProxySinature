@@ -5,6 +5,8 @@ from uiFromQt.InfoVerify import Ui_infoverify
 from uiFromQt.SignVerify import Ui_signverify
 from uiFromQt.ProxyCancleVerify import Ui_ProxyCancleVerify
 from uiFromQt.ProxyNewVerify import Ui_ProxyNewVerify
+from uiFromQt.NewProxy import Ui_NewProxy
+
 import sys, os
 from uiFromQt import Proxy
 from psig.libPsig import *
@@ -117,6 +119,13 @@ class myProxy(Proxy.Ui_infoview):
         Form_excu.show()
         Form_excu.exec_()
 
+        passwd = ui.input_signverify.text().encode()
+
+        ret =  self.key.Dekey(passwd)
+        if ret == None:
+            MSGBOX("口令错误，验证失败！")
+            return
+        
         self.text_signerUuid_2.setText(self.combo_signer.currentText())
         self.text_agentUuid_2.setText(self.key.key['uuid'])
         self.text_time_2.setText(time.asctime())
@@ -153,6 +162,13 @@ class myProxy(Proxy.Ui_infoview):
         ui.setupUi(Form_verifysign)
         Form_verifysign.show()
         Form_verifysign.exec_()
+        
+        passwd = ui.input_signverify.text().encode()
+
+        ret =  self.key.Dekey(passwd)
+        if ret == None:
+            MSGBOX("口令错误，验证失败！")
+            return
 
         self.text_signerUuid.setText(self.combo_signer.currentText())
         self.text_agentUuid.setText(self.key.key['uuid'])
@@ -177,6 +193,21 @@ class myProxy(Proxy.Ui_infoview):
         Form_newproxy.show()
         Form_newproxy.exec_()
 
+        passwd = ui.input_proxynewverify.text().encode()
+
+        ret =  self.key.Dekey(passwd)
+        if ret == None:
+            MSGBOX("口令错误，验证失败！")
+        else:
+            Form_newproxyuuid = QtWidgets.QDialog()
+            ui_2 = Ui_NewProxy()
+            ui_2.setupUi(Form_newproxyuuid)
+            Form_newproxyuuid.show()
+            Form_newproxyuuid.exec_()
+            NewAgent(self.key.key['uuid'],ui_2.input_newproxy.text(),self.al,self.sock)
+
+
+
     def on_select_auth(self):
         self.text_uuid.setText(self.combo_authorizelist.currentText())
         self.text_proxypublickey.setText(self.al.user[self.combo_authorizelist.currentText()]['keypub'])
@@ -184,7 +215,7 @@ class myProxy(Proxy.Ui_infoview):
 
     def on_select_client(self):
         self.text_uuid.setText(self.combo_clientlist.currentText())
-        self.text_proxypublickey.setText(self.al.user[self.combo_authorizelist.currentText()]['keypub'])
+        self.text_proxypublickey.setText(self.cl.user[self.combo_clientlist.currentText()]['keypub'])
 
     def on_cancleauthorize_btn_clicked(self):                                     #---------------------撤销授权验证
         Form_cancleauthorize= QtWidgets.QDialog()
@@ -192,6 +223,15 @@ class myProxy(Proxy.Ui_infoview):
         ui.setupUi(Form_cancleauthorize)
         Form_cancleauthorize.show()
         Form_cancleauthorize.exec_()
+
+        passwd = ui.input_proxycancleverify.text().encode()
+
+        ret =  self.key.Dekey(passwd)
+        if ret == None:
+            MSGBOX("口令错误，验证失败！")   
+        else:
+            DelAgent(self.key.key['uuid'],ui.input_proxycancleverify,text(),self.al,self.sock) 
+
 
     def _loadUserList(self):
         t = ReadKey()
