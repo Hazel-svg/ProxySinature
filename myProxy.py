@@ -117,8 +117,8 @@ class myProxy(Proxy.Ui_infoview):
         self.text_time_2.setText(time.asctime())
 
         try:
-            ret = self.key.Signature(self.text_choosefile.text(),
-                                     self.text_createfile.text(),
+            ret = self.key.Signature(self.text_choosefile.toPlainText(),
+                                     self.text_createfile.toPlainText(),
                                      self.combo_signer.currentText(),
                                      self.cl,
                                      ui.input_signverify.text().encode())
