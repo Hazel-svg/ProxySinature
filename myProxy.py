@@ -202,7 +202,7 @@ class myProxy(Proxy.Ui_infoview):
             MSGBOX("验证程序执行异常！")
             self.text_signeffective.setText("验证异常")
             return
-        status = '验证成功' if ret else "验证失败"
+        status = '验证成功' if ret==0 else "验证失败"
         self.text_signeffective.setText(status)
 
     '''代理页面'''
