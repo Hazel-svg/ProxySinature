@@ -2,39 +2,40 @@
 
 # Form implementation generated from reading ui file 'acceptAgent.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 300)
-        self.btn_acceptagent = QtWidgets.QDialogButtonBox(Dialog)
+
+class Ui_AcceptAgent(object):
+    def setupUi(self, AcceptAgent):
+        AcceptAgent.setObjectName("AcceptAgent")
+        AcceptAgent.resize(400, 300)
+        self.btn_acceptagent = QtWidgets.QDialogButtonBox(AcceptAgent)
         self.btn_acceptagent.setGeometry(QtCore.QRect(-50, 140, 341, 32))
         self.btn_acceptagent.setOrientation(QtCore.Qt.Horizontal)
         self.btn_acceptagent.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.btn_acceptagent.setObjectName("btn_acceptagent")
-        self.label_uuid = QtWidgets.QLabel(Dialog)
-        self.label_uuid.setGeometry(QtCore.QRect(70, 60, 51, 21))
-        self.label_uuid.setObjectName("label_uuid")
-        self.text_uuid = QtWidgets.QTextBrowser(Dialog)
-        self.text_uuid.setGeometry(QtCore.QRect(110, 50, 211, 31))
-        self.text_uuid.setObjectName("text_uuid")
-        self.label_askagent = QtWidgets.QLabel(Dialog)
+        self.label_accagentuuid = QtWidgets.QLabel(AcceptAgent)
+        self.label_accagentuuid.setGeometry(QtCore.QRect(70, 60, 51, 21))
+        self.label_accagentuuid.setObjectName("label_accagentuuid")
+        self.text_accagentuuid = QtWidgets.QTextBrowser(AcceptAgent)
+        self.text_accagentuuid.setGeometry(QtCore.QRect(110, 50, 211, 31))
+        self.text_accagentuuid.setObjectName("text_accagentuuid")
+        self.label_askagent = QtWidgets.QLabel(AcceptAgent)
         self.label_askagent.setGeometry(QtCore.QRect(70, 90, 251, 16))
         self.label_askagent.setObjectName("label_askagent")
 
-        self.retranslateUi(Dialog)
-        self.btn_acceptagent.accepted.connect(Dialog.accept)
-        self.btn_acceptagent.rejected.connect(Dialog.reject)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(AcceptAgent)
+        self.btn_acceptagent.accepted.connect(AcceptAgent.accept)
+        self.btn_acceptagent.rejected.connect(AcceptAgent.reject)
+        QtCore.QMetaObject.connectSlotsByName(AcceptAgent)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, AcceptAgent):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.label_uuid.setText(_translate("Dialog", "uuid:"))
-        self.label_askagent.setText(_translate("Dialog", "请求代理，请问是否同意"))
-
+        AcceptAgent.setWindowTitle(_translate("AcceptAgent", "Dialog"))
+        self.label_accagentuuid.setText(_translate("AcceptAgent", "uuid:"))
+        self.label_askagent.setText(_translate("AcceptAgent", "请求代理，请问是否同意"))

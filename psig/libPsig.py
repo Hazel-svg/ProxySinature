@@ -19,6 +19,7 @@ from psig.libMsg import *
 #from libSock import *
 
 BUF_SIZE=0x1024
+#ip='192.168.123.244'
 ip='35.194.227.136'
 port=14145
 
@@ -47,22 +48,41 @@ def ReadKey():
 class Sock(object):
     def __init__(self):
         super().__init__()
-        self.uuid=ReadKey()['uuid']
         self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         self.sock.connect((ip,port))
         self.input=[self.sock]
-        loginmsg=Msg1000(self.uuid)
-        pack=Package(0b1000,loginmsg)
-        self.sock.sendall(pack.Value())
+
+        self.NewUser()
+
         self.l=threading.Thread(target=self.Recv,args=())
         self.l.start()
         self.query=None
         self.agentmsg=None
+        self.agentreq=None
+
         
 
     def __del__(self):
         self.l._stop()
         self.sock.close()
+
+    def NewUser(self):
+        key=ReadKey()
+        self.uuid=key['uuid']
+        self.keypub=key['keypub']
+        del key
+
+        puser=Msg0(self.uuid,self.keypub)
+        pack=Package(0,puser)
+        self.sock.sendall(pack.Value())
+
+        loginmsg=Msg1000(self.uuid)
+        pack=Package(0b1000,loginmsg)
+        self.sock.sendall(pack.Value())
+
+        pself=Msg11(self.uuid,self.uuid,0,True,self.keypub)
+        pack=Package(0b11,pself)
+        self.sock.sendall(pack.Value())
 
 
     def Send(self,data:bytes):
@@ -77,6 +97,10 @@ class Sock(object):
             msg=pack['msg']
             if code==0b10:
                 # 请求代理
+                self.agentreq=msg # 监控此变量
+
+                # 由主线程处理代理请求 
+                '''
                 agree,passwd=IsAcc(msg['ouuid'])
                 if agree:
                     skey=Key(uuid=msg['ouuid'],key=None,passwd=passwd)
@@ -85,6 +109,7 @@ class Sock(object):
                 res=Msg11(msg['ouuid'],msg['suuid'],msg['nonce'],agree,skey.key['keypub'] if agree else None)
                 res_p=Package(0b11,res)
                 self.sock.sendall(res_p.Value())
+                '''
             elif code==0b11:
                 if msg['agree']:
                     # 更新AgentList
@@ -96,19 +121,18 @@ class Sock(object):
 
 class Key(object):
 
-    def __init__(self,uuid=None,key=None,passwd=None): # 密码需手动输入, 此处为方便调试
+    def __init__(self,uuid=None,key=None,passwd=b'dlub2040'): # 密码需手动输入, 此处为方便调试
         super().__init__()
         if key:
             self.key=key
             return
         #self.key=self.ReadKey()
-        #passwd= #此处应弹出输入框
-        if passwd:
-            self.key=self.GenKey(passwd)
-            if  uuid:
-                self.key['uuid']=uuid
-                return
-            self.WriteKey(self.key)
+        #passwd=b'dlub2040' #此处应弹出输入框
+        self.key=self.GenKey(passwd)
+        if  uuid:
+            self.key['uuid']=uuid
+            return
+        self.WriteKey(self.key)
     
     def WriteKey(self,key):
         '''写入密钥文件'''
@@ -127,7 +151,7 @@ class Key(object):
         '''生成公私钥对文件'''
         id=str(uuid.uuid1()).encode()
         #passwd = GetPasswd()
-        #passwd=
+        #passwd=b'dlub2040'
 
         #生成公私钥对
         rsa=RSA.generate(1024)
@@ -198,14 +222,14 @@ class Key(object):
             return False
 
 
-    def Signature(self,filename,signame,ouuid,client,passwd): # 密码应手动输入, 此处为方便调试
+    def Signature(self,filename,signame,ouuid,client,passwd=b'dlub2040'): # 密码应手动输入, 此处为方便调试
         '''签名函数'''
         suuid=client.host['uuid']
         siger=Key(uuid=None,key=client.Find(ouuid))
         if not siger:
             return 0x4F03
 
-        #passwd=
+        #passwd=b'dlub2040'
         key=siger.Dekey(passwd)
         if not key:
             return 0x4001
@@ -390,7 +414,6 @@ def AccAgent(ouuid,suuid,agree,nonce,client:ClientList,sock:Sock):
         msg=Msg11(ouuid,suuid,nonce)
     else:    
         pKey=Key(uuid=ouuid)
-        msg=Msg11(ouuid,suuid,nonce,agree,keypub=pKey.key['keypub'])
         client.AddUser(ouuid,pKey)
     pack=Package(0b11,msg)
     res=sock.Send(pack.Value())
@@ -399,7 +422,7 @@ def AccAgent(ouuid,suuid,agree,nonce,client:ClientList,sock:Sock):
 
 def IsAcc(ouuid):
     '''弹出请求代理对话框'''
-    return True,
+    return True,b'dlub2040'
 
 
 if __name__=='__main__':
@@ -413,7 +436,7 @@ if __name__=='__main__':
     sock=Sock()
     cl=ClientList(key)
     al=AgentList(key)
-    # 初始化完成
+    print('初始化完成')
 
     #NewAgent(key.key['uuid'],'02813290-1a86-11ea-bebb-94e6f741055e',al,sock)
 

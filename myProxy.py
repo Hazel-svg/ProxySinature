@@ -6,6 +6,7 @@ from uiFromQt.SignVerify import Ui_signverify
 from uiFromQt.ProxyCancleVerify import Ui_ProxyCancleVerify
 from uiFromQt.ProxyNewVerify import Ui_ProxyNewVerify
 from uiFromQt.NewProxy import Ui_NewProxy
+from uiFromQt.acceptAgent import Ui_AcceptAgent
 
 import sys, os
 from uiFromQt import Proxy
@@ -25,7 +26,7 @@ class myProxy(Proxy.Ui_infoview):
         self.btn_verifysign.clicked.connect(self.on_verifysign_btn_clicked)
         self.combo_authorizelist.currentIndexChanged.connect(self.on_select_auth)
         self.combo_clientlist.currentIndexChanged.connect(self.on_select_client)
-        # self.btn_createfile.clicked.connect(self.on_btn_createfile_clicked)
+        self.signfile_btn.clicked.connect(self.on_btn_signfile_clicked)
         self.btn_newproxy.clicked.connect(self.on_newproxy_btn_clicked)
         self.btn_cancleauthorize.clicked.connect(self.on_cancleauthorize_btn_clicked)
         t=ReadKey()
@@ -51,9 +52,18 @@ class myProxy(Proxy.Ui_infoview):
         del t
         self.cl = ClientList(self.key)
         self.al = AgentList(self.key)
+
         self._loadUserList()  # 加载下拉选择框
         self.sock = Sock()
         self.ShowInfo()
+        self.R = threading.Thread(target=self.RecvAgent)
+        self.R.start()
+        
+        
+        
+
+                        
+
 
     '''信息页面'''
 
@@ -73,8 +83,12 @@ class myProxy(Proxy.Ui_infoview):
             MSGBOX("口令错误，验证失败！")
             return
         else:
+            self.sock.NewUser()
+            self.cl.AddUser(self.key.key['uuid'],self.key.key)
+            self.al.AddUser(self.key.key['uuid'],{'uuid':self.key.key['uuid'],'keypub':self.key.key['keypub']})
             self.text_UUID.setText(self.key.key['uuid'])
             self.text_infopublickey.setText(self.key.key['keypub'])
+            self._loadUserList()
 
     '''
     def on_new_btn_clicked(self):  # ---------------------新建用户
@@ -140,7 +154,7 @@ class myProxy(Proxy.Ui_infoview):
             MSGBOX("签名程序执行异常！")
             self.text_signeffective_2.setText("签名异常")
             return
-        status = '签名成功' if ret else "签名失败"
+        status = '签名成功' if ret==0 else "签名失败"
         self.text_signeffective_2.setText(status)
 
     '''验证页面'''
@@ -152,9 +166,16 @@ class myProxy(Proxy.Ui_infoview):
         sigdir = f'{curdir}/'
         if not os.path.exists(sigdir):
             os.mkdir(sigdir)
-        signame = f'{curdir}/{filename.split("/")[-1]}.psig'
         self.text_verifyfile.setText(filename)
-        self.text_signfile.setText(signame)
+        
+    def on_btn_signfile_clicked(self):
+        '''选择需要验证的文件'''
+        filename = QFileDialog.getOpenFileName()[0]
+        curdir = os.getcwd().replace("\\", "/")
+        sigdir = f'{curdir}/'
+        if not os.path.exists(sigdir):
+            os.mkdir(sigdir)      
+        self.text_signfile.setText(filename)
 
     def on_verifysign_btn_clicked(self):
         Form_verifysign = QtWidgets.QDialog()
@@ -208,14 +229,22 @@ class myProxy(Proxy.Ui_infoview):
 
 
 
-    def on_select_auth(self):
-        self.text_uuid.setText(self.combo_authorizelist.currentText())
-        self.text_proxypublickey.setText(self.al.user[self.combo_authorizelist.currentText()]['keypub'])
-
-
     def on_select_client(self):
         self.text_uuid.setText(self.combo_clientlist.currentText())
-        self.text_proxypublickey.setText(self.cl.user[self.combo_clientlist.currentText()]['keypub'])
+        try:
+            self.text_proxypublickey.setText(self.cl.user[self.combo_clientlist.currentText()]['keypub'])
+        except BaseException:
+            pass
+
+   #待解决
+    def on_select_auth(self):
+
+        self.text_uuid.setText(self.combo_authorizelist.currentText())
+        try:
+            self.text_proxypublickey.setText(self.al.user[self.combo_authorizelist.currentText()]['keypub'])
+        except BaseException:
+            pass
+       
 
     def on_cancleauthorize_btn_clicked(self):                                     #---------------------撤销授权验证
         Form_cancleauthorize= QtWidgets.QDialog()
@@ -230,7 +259,7 @@ class myProxy(Proxy.Ui_infoview):
         if ret == None:
             MSGBOX("口令错误，验证失败！")   
         else:
-            DelAgent(self.key.key['uuid'],ui.input_proxycancleverify,text(),self.al,self.sock) 
+            DelAgent(self.key.key['uuid'],ui.input_proxycancleverify.text(),self.al,self.sock) 
 
 
     def _loadUserList(self):
@@ -244,7 +273,6 @@ class myProxy(Proxy.Ui_infoview):
         self.combo_authorizelist.clear()
         self.combo_clientlist.clear()
         self.combo_signer.clear()
-        # users = ["111", '222']
         for i in range(len(users)):
             self.combo_signer.insertItem(i, users[i])
             self.combo_authorizelist.insertItem(i, users[i])
@@ -258,6 +286,21 @@ class myProxy(Proxy.Ui_infoview):
         self.text_version.setText("v1.2.0")
         self.text_author.setText("Huiyu Zhou, Peidong Jiang, Yijie Tu")
         self.text_workdirectory.setText(os.getcwd())
+
+    def RecvAgent(self):
+       
+        while True:
+            if self.sock.agentreq:
+                Form_acceptAgent= QtWidgets.QDialog()
+                ui = Ui_AcceptAgent()
+                ui.setupUi(Form_acceptAgent)
+                Form_acceptAgent.show()
+                Form_acceptAgent.exec_()
+
+                
+                ui.text_accagentuuid.setText(self.sock.agentreq['ouuid'])
+                self.sock.agentreq=None
+
 
 
 def MSGBOX(msg: str):

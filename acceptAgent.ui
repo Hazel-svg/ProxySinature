@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ProxyCancleVerify</class>
- <widget class="QDialog" name="ProxyCancleVerify">
+ <class>AcceptAgent</class>
+ <widget class="QDialog" name="AcceptAgent">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,11 +13,11 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="btn_proxycancleverify">
+  <widget class="QDialogButtonBox" name="btn_acceptagent">
    <property name="geometry">
     <rect>
      <x>-50</x>
-     <y>150</y>
+     <y>140</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -29,49 +29,49 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_proxycancleverify">
+  <widget class="QLabel" name="label_accagentuuid">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>70</x>
      <y>60</y>
-     <width>301</width>
+     <width>51</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>撤销授权需要口令以验证身份</string>
+    <string>uuid:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_password">
+  <widget class="QTextBrowser" name="text_accagentuuid">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>90</y>
-     <width>41</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>口令：</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="input_proxycancleverify">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>90</y>
-     <width>291</width>
+     <x>110</x>
+     <y>50</y>
+     <width>211</width>
      <height>31</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_askagent">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>90</y>
+     <width>251</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>请求代理，请问是否同意</string>
    </property>
   </widget>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>btn_proxycancleverify</sender>
+   <sender>btn_acceptagent</sender>
    <signal>accepted()</signal>
-   <receiver>ProxyCancleVerify</receiver>
+   <receiver>AcceptAgent</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -85,9 +85,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>btn_proxycancleverify</sender>
+   <sender>btn_acceptagent</sender>
    <signal>rejected()</signal>
-   <receiver>ProxyCancleVerify</receiver>
+   <receiver>AcceptAgent</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
