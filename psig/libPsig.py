@@ -390,11 +390,12 @@ def NewAgent(ouuid,suuid,agent:AgentList,sock:Sock):
     
     sock.agentmsg=None
 
-    if res['agree'] and nonce == res['nonce']:
-        val={'uuid':res['suuid'],'keypub':res['keypub']}
-        al.AddUser(res['suuid'],val)
+    if res:
+        if res['agree'] and nonce == res['nonce']:
+            val={'uuid':res['suuid'],'keypub':res['keypub']}
+            al.AddUser(res['suuid'],val)
 
-    #agent.AddUser(suuid)
+        #agent.AddUser(suuid)
     return
 
 def DelAgent(ouuid,suuid,agent:AgentList,sock:Sock):
