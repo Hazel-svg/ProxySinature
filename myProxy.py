@@ -80,6 +80,7 @@ class myProxy(Proxy.Ui_infoview):
         self.R.start()
         '''
         self.thread = R()
+      #  self.thread.setAgentReq(self.sock.agentreq)
         self.thread.sin.connect(self.RecvAgent)
         
         
