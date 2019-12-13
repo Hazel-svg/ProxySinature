@@ -75,10 +75,12 @@ class Sock(object):
         puser=Msg0(self.uuid,self.keypub)
         pack=Package(0,puser)
         self.sock.sendall(pack.Value())
+        time.sleep(0.2)
 
         loginmsg=Msg1000(self.uuid)
         pack=Package(0b1000,loginmsg)
         self.sock.sendall(pack.Value())
+        time.sleep(0.2)
 
         pself=Msg11(self.uuid,self.uuid,0,True,self.keypub)
         pack=Package(0b11,pself)

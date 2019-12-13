@@ -7,12 +7,29 @@ from uiFromQt.ProxyCancleVerify import Ui_ProxyCancleVerify
 from uiFromQt.ProxyNewVerify import Ui_ProxyNewVerify
 from uiFromQt.NewProxy import Ui_NewProxy
 from uiFromQt.acceptAgent import Ui_AcceptAgent
+from PyQt5.QtCore import QThread,pyqtSignal
 
 import sys, os
 from uiFromQt import Proxy
 from psig.libPsig import *
 
+class R(QThread):
+    sin = pyqtSignal()
+    def __init__(self,parent=None):
+        super(R,self).__init__(parent)
+        self.sock = Sock()
+        self.sock.agentreq = None
+   
+    def setAgentReq(self,text):
+        self.sock.agentreq = text
 
+    def run(self):
+        while True:
+            self.sin.emit(self.sock.agentreq) 
+            self.sock.agentreq =None
+
+
+    
 
 class myProxy(Proxy.Ui_infoview):
     def __init__(self, proxy):
@@ -29,6 +46,7 @@ class myProxy(Proxy.Ui_infoview):
         self.signfile_btn.clicked.connect(self.on_btn_signfile_clicked)
         self.btn_newproxy.clicked.connect(self.on_newproxy_btn_clicked)
         self.btn_cancleauthorize.clicked.connect(self.on_cancleauthorize_btn_clicked)
+        
         t=ReadKey()
         if not t:
             # input
@@ -56,8 +74,13 @@ class myProxy(Proxy.Ui_infoview):
         self._loadUserList()  # 加载下拉选择框
         self.sock = Sock()
         self.ShowInfo()
-        self.R = threading.Thread(target=self.RecvAgent)
+        '''
+        self.R = R(self)
+        self.R.signal.connect(self.RecvAgent)
         self.R.start()
+        '''
+        self.thread = R()
+        self.thread.sin.connect(self.RecvAgent)
         
         
         
@@ -289,17 +312,15 @@ class myProxy(Proxy.Ui_infoview):
 
     def RecvAgent(self):
        
-        while True:
-            if self.sock.agentreq:
-                Form_acceptAgent= QtWidgets.QDialog()
-                ui = Ui_AcceptAgent()
-                ui.setupUi(Form_acceptAgent)
-                Form_acceptAgent.show()
-                Form_acceptAgent.exec_()
-
+        if self.sock.agentreq:
+            Form_acceptAgent= QtWidgets.QDialog()
+            ui = Ui_AcceptAgent()
+            ui.setupUi(Form_acceptAgent)
+            Form_acceptAgent.show()
+            Form_acceptAgent.exec_()
+            
+            ui.text_accagentuuid.setText(self.sock.agentreq['ouuid'])
                 
-                ui.text_accagentuuid.setText(self.sock.agentreq['ouuid'])
-                self.sock.agentreq=None
 
 
 
@@ -309,6 +330,9 @@ def MSGBOX(msg: str):
     msgb.setText(msg)
     msgb.show()
     msgb.exec()
+
+
+
 
 
 if __name__ == "__main__":
