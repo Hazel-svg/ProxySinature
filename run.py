@@ -9,6 +9,9 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     Form = QtWidgets.QTabWidget()
     window = myProxy(Form)
-    # window.setupUi(Form)
     Form.show()
-    sys.exit(app.exec_())
+    tid = app.exec_()
+
+    # 终止子线程，清理资源
+    del window
+    sys.exit(tid)
