@@ -8,9 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QFileDialog
-from uiFromQt.NewProxyPasswd import Ui_NewProxyPasswd
-from psig.libPsig import *
+
 
 
 class Ui_AcceptAgent(object):
@@ -28,7 +26,7 @@ class Ui_AcceptAgent(object):
         self.label_askagent.setObjectName("label_askagent")
         self.btn_acceptagent = QtWidgets.QPushButton(AcceptAgent)
         self.btn_acceptagent.setGeometry(QtCore.QRect(110, 150, 61, 31))
-        self.btn_acceptagent.clicked.connect(self.new_proxy_passwd)
+
 
         self.btn_acceptagent.setObjectName("btn_acceptagent")
         self.btn_rejectagent = QtWidgets.QPushButton(AcceptAgent)
@@ -47,13 +45,5 @@ class Ui_AcceptAgent(object):
         self.btn_acceptagent.setText(_translate("AcceptAgent", "是"))
         self.btn_rejectagent.setText(_translate("AcceptAgent", "否"))
 
-    def new_proxy_passwd(self):
-        Form_newproxypasswd = QtWidgets.QDialog()
-        ui2 = Ui_NewProxyPasswd()
-        ui2.setupUi(Form_newproxypasswd)
-        Form_newproxypasswd.show()
-        Form_newproxypasswd.exec_()
-
-        newproxypasswd = ui2.input_newproxypasswd.text().encode()
-        return newproxypasswd
+ 
 
