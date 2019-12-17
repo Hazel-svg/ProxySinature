@@ -24,7 +24,7 @@ class MyAcceptAgent(Ui_AcceptAgent):
         ui = Ui_NewProxyPasswd()
         ui.setupUi( Form_NewProxyPasswd)
         Form_NewProxyPasswd.show()
-         Form_NewProxyPasswd.exec_()
+        Form_NewProxyPasswd.exec_()
 
         # TODO:text()获取编辑框口令内容
         pass

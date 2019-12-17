@@ -209,8 +209,24 @@ class myProxy(Proxy.Ui_infoview):
             Form_newproxyuuid.show()
             Form_newproxyuuid.exec_()
             NewAgent(self.key.key['uuid'],ui_2.input_newproxy.text(),self.al,self.sock)
+            
+            
+
+    def _recieve_new_msg(self):
+        if self.sock.agentreq:
+            view = QtWidgets.QDialog()
+            passwd_arg = ['...']
+            ui = MyAcceptAgent(view, passwd_arg)
+            ui.text_accagentuuid.setText(self.sock.agentreq['ouuid'])
+            view.show()
+            view.exec_()
 
 
+            self.sock.agentreq = None
+            self.k = Key(uuid='ouuid',key=None, passwd=passwd_arg[0])
+            self.cl.AddUser(self.k.key['uuid'],self.k.key)
+            self.al.AddUser(self.k.key['uuid'],{'uuid':self.k.key['uuid'],'keypub':self.k.key['keypub']})
+            
 
     def on_select_client(self):
         self.text_uuid.setText(self.combo_clientlist.currentText())
@@ -243,7 +259,7 @@ class myProxy(Proxy.Ui_infoview):
             MSGBOX("口令错误，验证失败！")   
         else:
             DelAgent(self.key.key['uuid'],ui.input_proxycancleverify.text(),self.al,self.sock) 
-            self._loadUserList()
+            
 
 
     def _loadUserList(self):
@@ -272,19 +288,7 @@ class myProxy(Proxy.Ui_infoview):
         self.text_workdirectory.setText(os.getcwd())
 
 
-    def _recieve_new_msg(self):
-        if self.sock.agentreq:
-            view = QtWidgets.QDialog()
-            passwd_arg = ['...']
-            ui = MyAcceptAgent(view, passwd_arg)
-            ui.text_accagentuuid.setText(self.sock.agentreq['ouuid'])
-            view.show()
-            view.exec_()
-
-
-            self.sock.agentreq = None
-            k = Key(uuid='ouuid',key=None, passwd=passwd_arg[0])
-            self._loadUserList()
+    
            
 
 
