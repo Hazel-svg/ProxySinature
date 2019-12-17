@@ -8,30 +8,35 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QApplication, QFileDialog
+from uiFromQt.NewProxyPasswd import Ui_NewProxyPasswd
+from psig.libPsig import *
 
 
 class Ui_AcceptAgent(object):
     def setupUi(self, AcceptAgent):
         AcceptAgent.setObjectName("AcceptAgent")
         AcceptAgent.resize(400, 300)
-        self.btn_acceptagent = QtWidgets.QDialogButtonBox(AcceptAgent)
-        self.btn_acceptagent.setGeometry(QtCore.QRect(-50, 140, 341, 32))
-        self.btn_acceptagent.setOrientation(QtCore.Qt.Horizontal)
-        self.btn_acceptagent.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.btn_acceptagent.setObjectName("btn_acceptagent")
         self.label_accagentuuid = QtWidgets.QLabel(AcceptAgent)
-        self.label_accagentuuid.setGeometry(QtCore.QRect(70, 60, 51, 21))
+        self.label_accagentuuid.setGeometry(QtCore.QRect(10, 60, 51, 21))
         self.label_accagentuuid.setObjectName("label_accagentuuid")
         self.text_accagentuuid = QtWidgets.QTextBrowser(AcceptAgent)
-        self.text_accagentuuid.setGeometry(QtCore.QRect(110, 50, 211, 31))
+        self.text_accagentuuid.setGeometry(QtCore.QRect(50, 60, 301, 31))
         self.text_accagentuuid.setObjectName("text_accagentuuid")
         self.label_askagent = QtWidgets.QLabel(AcceptAgent)
-        self.label_askagent.setGeometry(QtCore.QRect(70, 90, 251, 16))
+        self.label_askagent.setGeometry(QtCore.QRect(50, 100, 251, 16))
         self.label_askagent.setObjectName("label_askagent")
+        self.btn_acceptagent = QtWidgets.QPushButton(AcceptAgent)
+        self.btn_acceptagent.setGeometry(QtCore.QRect(110, 150, 61, 31))
+        self.btn_acceptagent.clicked.connect(self.new_proxy_passwd)
+
+        self.btn_acceptagent.setObjectName("btn_acceptagent")
+        self.btn_rejectagent = QtWidgets.QPushButton(AcceptAgent)
+        self.btn_rejectagent.setGeometry(QtCore.QRect(230, 150, 61, 31))
+        self.btn_rejectagent.setObjectName("btn_rejectagent")
+        
 
         self.retranslateUi(AcceptAgent)
-        self.btn_acceptagent.accepted.connect(AcceptAgent.accept)
-        self.btn_acceptagent.rejected.connect(AcceptAgent.reject)
         QtCore.QMetaObject.connectSlotsByName(AcceptAgent)
 
     def retranslateUi(self, AcceptAgent):
@@ -39,3 +44,16 @@ class Ui_AcceptAgent(object):
         AcceptAgent.setWindowTitle(_translate("AcceptAgent", "Dialog"))
         self.label_accagentuuid.setText(_translate("AcceptAgent", "uuid:"))
         self.label_askagent.setText(_translate("AcceptAgent", "请求代理，请问是否同意"))
+        self.btn_acceptagent.setText(_translate("AcceptAgent", "是"))
+        self.btn_rejectagent.setText(_translate("AcceptAgent", "否"))
+
+    def new_proxy_passwd(self):
+        Form_newproxypasswd = QtWidgets.QDialog()
+        ui2 = Ui_NewProxyPasswd()
+        ui2.setupUi(Form_newproxypasswd)
+        Form_newproxypasswd.show()
+        Form_newproxypasswd.exec_()
+
+        newproxypasswd = ui2.input_newproxypasswd.text().encode()
+        return newproxypasswd
+

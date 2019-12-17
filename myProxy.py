@@ -7,6 +7,7 @@ from uiFromQt.ProxyCancleVerify import Ui_ProxyCancleVerify
 from uiFromQt.ProxyNewVerify import Ui_ProxyNewVerify
 from uiFromQt.NewProxy import Ui_NewProxy
 from uiFromQt.acceptAgent import Ui_AcceptAgent
+from uiFromQt.NewProxyPasswd import Ui_NewProxyPasswd
 from PyQt5.QtCore import QThread,pyqtSignal
 import  time
 import sys
@@ -48,10 +49,9 @@ class myProxy(Proxy.Ui_infoview):
         self.signfile_btn.clicked.connect(self.on_btn_signfile_clicked)
         self.btn_newproxy.clicked.connect(self.on_newproxy_btn_clicked)
         self.btn_cancleauthorize.clicked.connect(self.on_cancleauthorize_btn_clicked)
+        
 
-        MSGBOX("二姐姐最美！")
-        MSGBOX("二姐姐最可爱！")
-        MSGBOX("表白二姐姐！")
+       
 
         t=ReadKey()
         if not t:
@@ -291,6 +291,7 @@ class myProxy(Proxy.Ui_infoview):
             MSGBOX("口令错误，验证失败！")   
         else:
             DelAgent(self.key.key['uuid'],ui.input_proxycancleverify.text(),self.al,self.sock) 
+            self._loadUserList()
 
 
     def _loadUserList(self):
@@ -325,15 +326,22 @@ class myProxy(Proxy.Ui_infoview):
     #         time.sleep(0.2)
 
     def _recieve_new_msg(self):
-        print("_recieve_new_msg")
+        
         if self.sock.agentreq:
             Form_acceptAgent = QtWidgets.QDialog()
             ui = Ui_AcceptAgent()
             ui.setupUi(Form_acceptAgent)
+            ui.text_accagentuuid.setText(self.sock.agentreq['ouuid'])
             Form_acceptAgent.show()
             Form_acceptAgent.exec_()
-            ui.text_accagentuuid.setText(self.sock.agentreq['ouuid'])
+           
             self.sock.agentreq = None
+            ret = ui.new_proxy_passwd()
+            k = Key(uuid='ouuid',key=None,passwd=ret)
+            self._loadUserList()
+           
+
+
 
 def MSGBOX(msg: str):
     "弹出异常消息提示框"
@@ -341,6 +349,7 @@ def MSGBOX(msg: str):
     msgb.setText(msg)
     msgb.show()
     msgb.exec()
+
 
 
 

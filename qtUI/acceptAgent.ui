@@ -13,26 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="btn_acceptagent">
-   <property name="geometry">
-    <rect>
-     <x>-50</x>
-     <y>140</y>
-     <width>341</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_accagentuuid">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>10</x>
      <y>60</y>
      <width>51</width>
      <height>21</height>
@@ -45,9 +29,9 @@
   <widget class="QTextBrowser" name="text_accagentuuid">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>50</y>
-     <width>211</width>
+     <x>50</x>
+     <y>60</y>
+     <width>301</width>
      <height>31</height>
     </rect>
    </property>
@@ -55,8 +39,8 @@
   <widget class="QLabel" name="label_askagent">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>90</y>
+     <x>50</x>
+     <y>100</y>
      <width>251</width>
      <height>16</height>
     </rect>
@@ -65,40 +49,33 @@
     <string>请求代理，请问是否同意</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="btn_acceptagent">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>150</y>
+     <width>61</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>是</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_rejectagent">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>150</y>
+     <width>61</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>否</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>btn_acceptagent</sender>
-   <signal>accepted()</signal>
-   <receiver>AcceptAgent</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_acceptagent</sender>
-   <signal>rejected()</signal>
-   <receiver>AcceptAgent</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
