@@ -8,28 +8,30 @@ from uiFromQt.ProxyNewVerify import Ui_ProxyNewVerify
 from uiFromQt.NewProxy import Ui_NewProxy
 from uiFromQt.acceptAgent import Ui_AcceptAgent
 from PyQt5.QtCore import QThread,pyqtSignal
-
+import  time
+import sys
+import PyQt5.QtWidgets as PQW
+import PyQt5.QtCore as PQC
 import sys, os
 from uiFromQt import Proxy
 from psig.libPsig import *
 
-class R(QThread):
-    sin = pyqtSignal()
-    def __init__(self,parent=None):
-        super(R,self).__init__(parent)
-        self.sock = Sock()
-        self.sock.agentreq = None
-   
-    def setAgentReq(self,text):
-        self.sock.agentreq = text
+# class R(QThread):
+#     sin = pyqtSignal()
+#     def __init__(self,parent=None):
+#         super(R,self).__init__(parent)
+#         self.sock = Sock()
+#         self.sock.agentreq = None
+#
+#     def setAgentReq(self,text):
+#         self.sock.agentreq = text
+#
+#     def run(self):
+#         while True:
+#             self.sin.emit(self.sock.agentreq)
+#             self.sock.agentreq =None
 
-    def run(self):
-        while True:
-            self.sin.emit(self.sock.agentreq) 
-            self.sock.agentreq =None
 
-
-    
 
 class myProxy(Proxy.Ui_infoview):
     def __init__(self, proxy):
@@ -46,7 +48,11 @@ class myProxy(Proxy.Ui_infoview):
         self.signfile_btn.clicked.connect(self.on_btn_signfile_clicked)
         self.btn_newproxy.clicked.connect(self.on_newproxy_btn_clicked)
         self.btn_cancleauthorize.clicked.connect(self.on_cancleauthorize_btn_clicked)
-        
+
+        MSGBOX("二姐姐最美！")
+        MSGBOX("二姐姐最可爱！")
+        MSGBOX("表白二姐姐！")
+
         t=ReadKey()
         if not t:
             # input
@@ -73,15 +79,16 @@ class myProxy(Proxy.Ui_infoview):
 
         self._loadUserList()  # 加载下拉选择框
         self.sock = Sock()
+        self.sock.new_msg.connect(self._recieve_new_msg)
         self.ShowInfo()
         '''
         self.R = R(self)
         self.R.signal.connect(self.RecvAgent)
         self.R.start()
         '''
-        self.thread = R()
+        # self.R = threading.Thread(target = self.RecvAgent).start()
       #  self.thread.setAgentReq(self.sock.agentreq)
-        self.thread.sin.connect(self.RecvAgent)
+      #   self.thread.sin.connect(self.RecvAgent)
         
         
         
@@ -311,19 +318,22 @@ class myProxy(Proxy.Ui_infoview):
         self.text_author.setText("Huiyu Zhou, Peidong Jiang, Yijie Tu")
         self.text_workdirectory.setText(os.getcwd())
 
-    def RecvAgent(self):
-       
+    # def RecvAgent(self):
+    #     while True:
+    #         if self.sock.agentreq:
+    #             self.sock.
+    #         time.sleep(0.2)
+
+    def _recieve_new_msg(self):
+        print("_recieve_new_msg")
         if self.sock.agentreq:
-            Form_acceptAgent= QtWidgets.QDialog()
+            Form_acceptAgent = QtWidgets.QDialog()
             ui = Ui_AcceptAgent()
             ui.setupUi(Form_acceptAgent)
             Form_acceptAgent.show()
             Form_acceptAgent.exec_()
-            
             ui.text_accagentuuid.setText(self.sock.agentreq['ouuid'])
-                
-
-
+            self.sock.agentreq = None
 
 def MSGBOX(msg: str):
     "弹出异常消息提示框"

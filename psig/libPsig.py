@@ -7,6 +7,9 @@ from Crypto.Signature import pkcs1_15 as PKCS_Sign
 from Crypto.Hash import SHA1,MD5
 from Crypto.Random import random
 
+from PyQt5.QtCore import QObject, pyqtSignal
+from PyQt5.QtWidgets import QDialog
+
 import uuid
 import json
 import base64
@@ -44,8 +47,9 @@ def ReadKey():
         return None
 
 
+class Sock(QObject):
+    new_msg = pyqtSignal()
 
-class Sock(object):
     def __init__(self):
         super().__init__()
         self.sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -54,13 +58,12 @@ class Sock(object):
 
         self.NewUser()
 
-        self.l=threading.Thread(target=self.Recv,args=())
-        self.l.start()
+        self.l=threading.Thread(target=self.Recv).start()
+        print("thread")
         self.query=None
         self.agentmsg=None
         self.agentreq=None
 
-        
 
     def __del__(self):
         self.l._stop()
@@ -93,14 +96,16 @@ class Sock(object):
     def Recv(self):
         #global query
         while True:
+            print('recev')
             data=self.sock.recv(BUF_SIZE)
             pack=json.loads(data)
             code=pack['code']
             msg=pack['msg']
+            print(f'msg = {msg}, code = {code}')
             if code==0b10:
                 # 请求代理
                 self.agentreq=msg # 监控此变量
-
+                self.new_msg.emit()
                 # 由主线程处理代理请求 
                 '''
                 agree,passwd=IsAcc(msg['ouuid'])
