@@ -226,7 +226,7 @@ class myProxy(Proxy.Ui_infoview):
             self.k = Key(uuid='ouuid',key=None, passwd=passwd_arg[0])
             self.cl.AddUser(self.k.key['uuid'],self.k.key)
             self.al.AddUser(self.k.key['uuid'],{'uuid':self.k.key['uuid'],'keypub':self.k.key['keypub']})
-            
+        self.sock.agentreq = None
 
     def on_select_client(self):
         self.text_uuid.setText(self.combo_clientlist.currentText())
