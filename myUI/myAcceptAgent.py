@@ -1,4 +1,7 @@
 from uiFromQt.acceptAgent import Ui_AcceptAgent
+from uiFromQt.NewProxyPasswd import Ui_NewProxyPasswd
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication, QFileDialog
 
 
 class MyAcceptAgent(Ui_AcceptAgent):
@@ -17,10 +20,14 @@ class MyAcceptAgent(Ui_AcceptAgent):
         '''修改口令'''
 
         # TODO:新建修改口令对话框
-        pass
+        Form_NewProxyPasswd= QtWidgets.QDialog()
+        ui = Ui_NewProxyPasswd()
+        ui.setupUi( Form_NewProxyPasswd)
+        Form_NewProxyPasswd.show()
+        Form_NewProxyPasswd.exec_()
 
         # TODO:text()获取编辑框口令内容
         pass
-        new_passwd = None
+        new_passwd = ui.input_newproxypasswd.text().encode()
 
         self.passwd_arg[0] = new_passwd
