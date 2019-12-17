@@ -34,9 +34,6 @@ class myProxy(Proxy.Ui_infoview):
         self.signfile_btn.clicked.connect(self.on_btn_signfile_clicked)
         self.btn_newproxy.clicked.connect(self.on_newproxy_btn_clicked)
         self.btn_cancleauthorize.clicked.connect(self.on_cancleauthorize_btn_clicked)
-        
-
-       
 
         t=ReadKey()
         if not t:
@@ -67,6 +64,9 @@ class myProxy(Proxy.Ui_infoview):
         self.sock.new_msg.connect(self._recieve_new_msg)
         self.ShowInfo()
 
+    def __del__(self):
+        self.sock.clear()
+        print("exit")
 
     '''信息页面'''
 
