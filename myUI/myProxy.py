@@ -17,23 +17,6 @@ import sys, os
 from uiFromQt import Proxy
 from psig.libPsig import *
 
-# class R(QThread):
-#     sin = pyqtSignal()
-#     def __init__(self,parent=None):
-#         super(R,self).__init__(parent)
-#         self.sock = Sock()
-#         self.sock.agentreq = None
-#
-#     def setAgentReq(self,text):
-#         self.sock.agentreq = text
-#
-#     def run(self):
-#         while True:
-#             self.sin.emit(self.sock.agentreq)
-#             self.sock.agentreq =None
-
-
-
 class myProxy(Proxy.Ui_infoview):
     def __init__(self, proxy):
         super().setupUi(proxy)
@@ -81,19 +64,6 @@ class myProxy(Proxy.Ui_infoview):
         self.sock = Sock()
         self.sock.new_msg.connect(self._recieve_new_msg)
         self.ShowInfo()
-        '''
-        self.R = R(self)
-        self.R.signal.connect(self.RecvAgent)
-        self.R.start()
-        '''
-        # self.R = threading.Thread(target = self.RecvAgent).start()
-      #  self.thread.setAgentReq(self.sock.agentreq)
-      #   self.thread.sin.connect(self.RecvAgent)
-        
-        
-        
-
-                        
 
 
     '''信息页面'''
@@ -121,26 +91,6 @@ class myProxy(Proxy.Ui_infoview):
             self.text_infopublickey.setText(self.key.key['keypub'])
             self._loadUserList()
 
-    '''
-    def on_new_btn_clicked(self):  # ---------------------新建用户
-        
-        Form_new = QtWidgets.QDialog()
-        ui = Ui_infonew()
-        ui.setupUi(Form_new)
-        Form_new.show()
-        Form_new.exec_()
-
-        # gen key
-        passwd = ui.input_infonew.text().encode()  # 口令
-        key_d = self.key.GenKey(passwd)
-
-        # 客户端显示信息
-        self.text_UUID.setText(key_d['uuid'])
-        self.text_infopublickey.setText(key_d['keypub'])
-        self.text_workdirectory.setText(os.getcwd())
-        self._loadUserList()
-    '''
-    '''签名页面'''
 
     def on_btn_choosefile_clicked(self):
         '''选择需要签名的原文件'''
@@ -319,11 +269,6 @@ class myProxy(Proxy.Ui_infoview):
         self.text_author.setText("Huiyu Zhou, Peidong Jiang, Yijie Tu")
         self.text_workdirectory.setText(os.getcwd())
 
-    # def RecvAgent(self):
-    #     while True:
-    #         if self.sock.agentreq:
-    #             self.sock.
-    #         time.sleep(0.2)
 
     def _recieve_new_msg(self):
         
@@ -355,11 +300,3 @@ def MSGBOX(msg: str):
 
 
 
-if __name__ == "__main__":
-
-    app = QApplication(sys.argv)
-    Form = QtWidgets.QTabWidget()
-    window = myProxy(Form)
-    # window.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
