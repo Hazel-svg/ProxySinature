@@ -1,5 +1,7 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QFileDialog
+
+from myUI.myAcceptAgent import MyAcceptAgent
 from uiFromQt.InfoNew import Ui_infonew
 from uiFromQt.InfoVerify import Ui_infoverify
 from uiFromQt.SignVerify import Ui_signverify
@@ -271,18 +273,17 @@ class myProxy(Proxy.Ui_infoview):
 
 
     def _recieve_new_msg(self):
-        
         if self.sock.agentreq:
-            Form_acceptAgent = QtWidgets.QDialog()
-            ui = Ui_AcceptAgent()
-            ui.setupUi(Form_acceptAgent)
+            view = QtWidgets.QDialog()
+            passwd_arg = ['...']
+            ui = MyAcceptAgent(view, passwd_arg)
             ui.text_accagentuuid.setText(self.sock.agentreq['ouuid'])
-            Form_acceptAgent.show()
-            Form_acceptAgent.exec_()
-           
+            view.show()
+            view.exec_()
+
+
             self.sock.agentreq = None
-            ret = ui.new_proxy_passwd()
-            k = Key(uuid='ouuid',key=None,passwd=ret)
+            k = Key(uuid='ouuid',key=None, passwd=passwd_arg[0])
             self._loadUserList()
            
 
