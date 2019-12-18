@@ -102,9 +102,9 @@ class Sock(QObject):
             code=pack['code']
             msg=pack['msg']
             print(f'msg = {msg}, code = {code}')
-            if code==0b10:
+            if code==0b10 or code==0b11:
                 # 请求代理
-                self.agentreq=msg # 监控此变量
+                self.agentreq=pack # 监控此变量
                 self.new_msg.emit()
                 # 由主线程处理代理请求 
                 '''
@@ -117,10 +117,7 @@ class Sock(QObject):
                 res_p=Package(0b11,res)
                 self.sock.sendall(res_p.Value())
                 '''
-            elif code==0b11:
-                if msg['agree']:
-                    # 更新AgentList
-                    self.agentmsg=msg
+        
             elif code==0b101:
                 self.query=data
 

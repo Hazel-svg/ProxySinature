@@ -63,10 +63,11 @@ class myProxy(Proxy.Ui_infoview):
         self.sock = Sock()
         self.sock.new_msg.connect(self._recieve_new_msg)
         self.ShowInfo()
-
+    '''
     def __del__(self):
         self.sock.clear()
         print("exit")
+    '''
 
     '''信息页面'''
 
@@ -93,6 +94,7 @@ class myProxy(Proxy.Ui_infoview):
             self.text_infopublickey.setText(self.key.key['keypub'])
             self._loadUserList()
 
+    '''签名页面'''
 
     def on_btn_choosefile_clicked(self):
         '''选择需要签名的原文件'''
@@ -139,6 +141,7 @@ class myProxy(Proxy.Ui_infoview):
             return
         status = '签名成功' if ret==0 else "签名失败"
         self.text_signeffective_2.setText(status)
+        
 
     '''验证页面'''
 
@@ -214,19 +217,27 @@ class myProxy(Proxy.Ui_infoview):
 
     def _recieve_new_msg(self):
         if self.sock.agentreq:
-            view = QtWidgets.QDialog()
-            passwd_arg = ['...']
-            ui = MyAcceptAgent(view, passwd_arg)
-            ui.text_accagentuuid.setText(self.sock.agentreq['ouuid'])
-            view.show()
-            view.exec_()
+            code=self.sock.agentreq['code']
+            msg=self.sock.agentreq['msg']
+            if code == 0b10:
+                view = QtWidgets.QDialog()
+                passwd_arg = ['...']
+                ui = MyAcceptAgent(view, passwd_arg)
+                ui.text_accagentuuid.setText(msg['ouuid'])
+                view.show()
+                view.exec_()
 
+                k = Key(uuid='ouuid',key=None, passwd=passwd_arg[0])
+                self.cl.AddUser(k.key['uuid'],k.key)
+            elif code == 0b11:
+                if msg['agree']:
+                   self.al.AddUser(k.key['uuid'],{'uuid':k.key['uuid'],'keypub':k.key['keypub']}) 
 
-            self.sock.agentreq = None
-            self.k = Key(uuid='ouuid',key=None, passwd=passwd_arg[0])
-            self.cl.AddUser(self.k.key['uuid'],self.k.key)
-            self.al.AddUser(self.k.key['uuid'],{'uuid':self.k.key['uuid'],'keypub':self.k.key['keypub']})
+            #刷新所有下拉列表
+            self._loadUserList()
         self.sock.agentreq = None
+            
+       
 
     def on_select_client(self):
         self.text_uuid.setText(self.combo_clientlist.currentText())
@@ -259,6 +270,7 @@ class myProxy(Proxy.Ui_infoview):
             MSGBOX("口令错误，验证失败！")   
         else:
             DelAgent(self.key.key['uuid'],ui.input_proxycancleverify.text(),self.al,self.sock) 
+            self.al.Delete(self.key.key['uuid'])
             
 
 
