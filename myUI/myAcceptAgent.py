@@ -9,14 +9,22 @@ class MyAcceptAgent(Ui_AcceptAgent):
     def __init__(self, view, passwd_arg):
         super().setupUi(view)
         self.btn_acceptagent.clicked.connect(self._on_btn_ok_clicked)
-        
+        self.btn_rejectagent.clicked.connect(self._on_btn_no_clicked)
 
         # 成员变量获取新口令, 使用list 为引用传值
         self.passwd_arg = passwd_arg
         self.view = view
+        self.ret = None
+
     def _on_btn_ok_clicked(self):
         self._modifyPasswd()
+        self.ret = True
         self.view.close()
+        
+    
+    def _on_btn_no_clicked(self):
+        self.view.close()
+        self.ret = False
 
     
 

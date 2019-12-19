@@ -61,6 +61,7 @@ class myProxy(Proxy.Ui_infoview):
 
         self._loadUserList()  # 加载下拉选择框
         self.sock = Sock()
+        self.Acc = MyAcceptAgent()
         self.sock.new_msg.connect(self._recieve_new_msg)
         self.ShowInfo()
     '''
@@ -219,6 +220,7 @@ class myProxy(Proxy.Ui_infoview):
         if self.sock.agentreq:
             code=self.sock.agentreq['code']
             msg=self.sock.agentreq['msg']
+            
             if code == 0b10:
                 view = QtWidgets.QDialog()
                 passwd_arg = ['...']
@@ -230,7 +232,7 @@ class myProxy(Proxy.Ui_infoview):
                 k = Key(uuid=msg['ouuid'],key=None, passwd=passwd_arg[0])
                 self.cl.AddUser(k.key['uuid'],k.key)
 
-                req=Msg11(msg['ouuid'],msg['suuid'],msg['nonce'],True,k.key['keypub'])
+                req=Msg11(msg['ouuid'],msg['suuid'],msg['nonce'],self.Acc.ret,k.key['keypub'])
                 req_p=Package(0b11,req)
                 self.sock.sock.sendall(req_p.Value())
 
@@ -277,20 +279,27 @@ class myProxy(Proxy.Ui_infoview):
         else:
             DelAgent(self.key.key['uuid'],ui.input_proxycancleverify.text(),self.al,self.sock) 
             self.al.Delete(self.key.key['uuid'])
+            agents = list(self.al.user.keys())
+            for i in (len(agents)):
+                self.combo_authorizelist.removeItem(i, agents[i])
             
 
 
     def _loadUserList(self):
         
-        users = list(self.cl.user.keys())
+        clients = list(self.cl.user.keys())
+        agents = list(self.al.user.keys())
 
         self.combo_authorizelist.clear()
         self.combo_clientlist.clear()
         self.combo_signer.clear()
-        for i in range(len(users)):
-            self.combo_signer.insertItem(i, users[i])
-            self.combo_authorizelist.insertItem(i, users[i])
-            self.combo_clientlist.insertItem(i, users[i])
+        for i in range(len(clients)):
+            self.combo_signer.insertItem(i, clients[i])
+            self.combo_clientlist.insertItem(i, clients[i])
+        for i in (len(agents)):
+            self.combo_authorizelist.insertItem(i, agents[i])
+        
+            
 
     def ShowInfo(self):
         # 客户端显示信息
