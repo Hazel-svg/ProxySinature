@@ -220,7 +220,7 @@ class myProxy(Proxy.Ui_infoview):
         if self.sock.agentreq:
             code=self.sock.agentreq['code']
             msg=self.sock.agentreq['msg']
-            Acc = MyAcceptAgent()
+          
             
             if code == 0b10:
                 view = QtWidgets.QDialog()
@@ -229,11 +229,11 @@ class myProxy(Proxy.Ui_infoview):
                 ui.text_accagentuuid.setText(msg['ouuid'])
                 view.show()
                 view.exec_()
-                if Acc.ret:
+                if ui.ret:
                     k = Key(uuid=msg['ouuid'],key=None, passwd=passwd_arg[0])
                     self.cl.AddUser(k.key['uuid'],k.key)
 
-                    req=Msg11(msg['ouuid'],msg['suuid'],msg['nonce'],Acc.ret,k.key['keypub'])
+                    req=Msg11(msg['ouuid'],msg['suuid'],msg['nonce'],ui.ret,k.key['keypub'])
                 else:
                     req=Msg11(msg['ouuid'],msg['suuid'],msg['nonce'])
                     

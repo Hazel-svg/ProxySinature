@@ -98,9 +98,13 @@ class Sock(QObject):
         while True:
             print('recev')
             data=self.sock.recv(BUF_SIZE)
-            pack=json.loads(data)
-            code=pack['code']
-            msg=pack['msg']
+            try:
+                pack=json.loads(data)
+                code=pack['code']
+                msg=pack['msg']
+            except BaseException:
+                print("Wrong Data Recv:",data)
+                continue
             print(f'msg = {msg}, code = {code}')
             if code==0b10 or code==0b11:
                 # 请求代理
