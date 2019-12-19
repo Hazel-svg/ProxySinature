@@ -61,7 +61,7 @@ class myProxy(Proxy.Ui_infoview):
 
         self._loadUserList()  # 加载下拉选择框
         self.sock = Sock()
-        
+       
         self.sock.new_msg.connect(self._recieve_new_msg)
         self.ShowInfo()
     '''
@@ -229,11 +229,14 @@ class myProxy(Proxy.Ui_infoview):
                 ui.text_accagentuuid.setText(msg['ouuid'])
                 view.show()
                 view.exec_()
+                if Acc.ret:
+                    k = Key(uuid=msg['ouuid'],key=None, passwd=passwd_arg[0])
+                    self.cl.AddUser(k.key['uuid'],k.key)
 
-                k = Key(uuid=msg['ouuid'],key=None, passwd=passwd_arg[0])
-                self.cl.AddUser(k.key['uuid'],k.key)
-
-                req=Msg11(msg['ouuid'],msg['suuid'],msg['nonce'],Acc.ret,k.key['keypub'])
+                    req=Msg11(msg['ouuid'],msg['suuid'],msg['nonce'],Acc.ret,k.key['keypub'])
+                else:
+                    req=Msg11(msg['ouuid'],msg['suuid'],msg['nonce'])
+                    
                 req_p=Package(0b11,req)
                 self.sock.sock.sendall(req_p.Value())
 
