@@ -125,7 +125,7 @@ class Sock(QObject):
 
 class Key(object):
 
-    def __init__(self,uuid=None,key=None,passwd=b'dlub2040'): # 密码需手动输入, 此处为方便调试
+    def __init__(self,uuid=None,key=None,passwd=None): # 密码需手动输入, 此处为方便调试
         super().__init__()
         if key:
             self.key=key
