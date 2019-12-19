@@ -227,11 +227,17 @@ class myProxy(Proxy.Ui_infoview):
                 view.show()
                 view.exec_()
 
-                k = Key(uuid='ouuid',key=None, passwd=passwd_arg[0])
+                k = Key(uuid=msg['ouuid'],key=None, passwd=passwd_arg[0])
                 self.cl.AddUser(k.key['uuid'],k.key)
+
+                req=Msg11(msg['ouuid'],msg['suuid'],msg['nonce'],True,k.key['keypub'])
+                req_p=Package(0b11,req)
+                self.sock.sock.sendall(req_p.Value())
+
             elif code == 0b11:
                 if msg['agree']:
                    self.al.AddUser(k.key['uuid'],{'uuid':k.key['uuid'],'keypub':k.key['keypub']}) 
+            self.sock.agentreq = None
 
             #刷新所有下拉列表
             self._loadUserList()
@@ -275,13 +281,9 @@ class myProxy(Proxy.Ui_infoview):
 
 
     def _loadUserList(self):
-        t = ReadKey()
-        if not t:
-            key = Key()
-        else:
-            key = Key(uuid=None, key=t)
-        users = ClientList(key)
-        users = list(users.user.keys())
+        
+        users = list(self.cl.user.keys())
+
         self.combo_authorizelist.clear()
         self.combo_clientlist.clear()
         self.combo_signer.clear()
