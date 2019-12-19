@@ -280,7 +280,7 @@ class myProxy(Proxy.Ui_infoview):
             DelAgent(self.key.key['uuid'],ui.input_proxycancleverify.text(),self.al,self.sock) 
             self.al.Delete(self.key.key['uuid'])
             agents = list(self.al.user.keys())
-            for i in (len(agents)):
+            for i in range(len(agents)):
                 self.combo_authorizelist.removeItem(i, agents[i])
             
 
@@ -296,7 +296,7 @@ class myProxy(Proxy.Ui_infoview):
         for i in range(len(clients)):
             self.combo_signer.insertItem(i, clients[i])
             self.combo_clientlist.insertItem(i, clients[i])
-        for i in (len(agents)):
+        for i in range(len(agents)):
             self.combo_authorizelist.insertItem(i, agents[i])
         
             
