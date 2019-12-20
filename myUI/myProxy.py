@@ -114,11 +114,12 @@ class myProxy(Proxy.Ui_infoview):
     def on_excu_btn_clicked(self):  # --------------------执行签名
         Form_excu = QtWidgets.QDialog()
         ui = Ui_signverify()
+        ui.text_clientuuid.setText(self.combo_signer.currentText())
         ui.setupUi(Form_excu)
         Form_excu.show()
         Form_excu.exec_()
 
-        passwd = ui.input_signverify.text().encode()
+      
 
         '''
         ret =  self.key.Dekey(passwd)
@@ -186,13 +187,16 @@ class myProxy(Proxy.Ui_infoview):
             return
             '''
 
-        self.text_signerUuid.setText(self.combo_signer.currentText())
-        self.text_agentUuid.setText(self.key.key['uuid'])
-        self.text_time.setText(time.asctime())
+        with open(self.text_signfile.toPlainText(),'r') as f:
+            d = json.load(f)
+            self.text_signerUuid.setText(d['ouuid'])
+            self.text_agentUuid.setText(d['suuid'])
+            self.text_time.setText(time.asctime(time.localtime(float(d['time']))))
 
         try:
-            ret = self.key.Verify(self.text_verifyfile.text(),
-                                  self.text_signfile.text(), None)
+            ret = self.key.Verify(self.text_verifyfile.toPlainText(),
+                                  self.text_signfile.toPlainText(), 
+                                  self.sock)
         except:
             MSGBOX("验证程序执行异常！")
             self.text_signeffective.setText("验证异常")
