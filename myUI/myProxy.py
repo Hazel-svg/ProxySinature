@@ -169,6 +169,8 @@ class myProxy(Proxy.Ui_infoview):
         self.text_signfile.setText(filename)
 
     def on_verifysign_btn_clicked(self):
+        
+        '''
         Form_verifysign = QtWidgets.QDialog()
         ui = Ui_signverify()
         ui.setupUi(Form_verifysign)
@@ -177,10 +179,13 @@ class myProxy(Proxy.Ui_infoview):
         
         passwd = ui.input_signverify.text().encode()
 
+        
+
         ret =  self.key.Dekey(passwd)
         if ret == None:
             MSGBOX("口令错误，验证失败！")
             return
+            '''
 
         self.text_signerUuid.setText(self.combo_signer.currentText())
         self.text_agentUuid.setText(self.key.key['uuid'])
