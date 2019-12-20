@@ -51,7 +51,6 @@ class myProxy(Proxy.Ui_infoview):
             self.text_UUID.setText(self.key.key['uuid'])
             self.text_infopublickey.setText(self.key.key['keypub'])
             self.text_workdirectory.setText(os.getcwd())
-            self._loadUserList()
 
         else:
             self.key=Key(key=t)
