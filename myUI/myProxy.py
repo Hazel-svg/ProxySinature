@@ -294,7 +294,6 @@ class myProxy(Proxy.Ui_infoview):
             MSGBOX("口令错误，验证失败！")   
         else:
             DelAgent(self.key.key['uuid'],self.combo_authorizelist.currentText(),self.al,self.sock) 
-            self.al.Delete(self.combo_authorizelist.currentIndex())
             self.combo_authorizelist.removeItem(self.combo_authorizelist.currentIndex())
             
 
