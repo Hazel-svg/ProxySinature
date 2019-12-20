@@ -88,6 +88,7 @@ class Sock(QObject):
         pself=Msg11(self.uuid,self.uuid,0,True,self.keypub)
         pack=Package(0b11,pself)
         self.sock.sendall(pack.Value())
+        time.sleep(0.2)
 
 
     def Send(self,data:bytes):

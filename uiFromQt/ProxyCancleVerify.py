@@ -37,5 +37,5 @@ class Ui_ProxyCancleVerify(object):
     def retranslateUi(self, ProxyCancleVerify):
         _translate = QtCore.QCoreApplication.translate
         ProxyCancleVerify.setWindowTitle(_translate("ProxyCancleVerify", "Dialog"))
-        self.label_proxycancleverify.setText(_translate("ProxyCancleVerify", "新建代理需要口令以验证身份"))
+        self.label_proxycancleverify.setText(_translate("ProxyCancleVerify", "撤销授权需要口令以验证身份"))
         self.label_password.setText(_translate("ProxyCancleVerify", "口令："))

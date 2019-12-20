@@ -114,8 +114,8 @@ class myProxy(Proxy.Ui_infoview):
     def on_excu_btn_clicked(self):  # --------------------执行签名
         Form_excu = QtWidgets.QDialog()
         ui = Ui_signverify()
-        ui.text_clientuuid.setText(self.combo_signer.currentText())
         ui.setupUi(Form_excu)
+        ui.text_clientuuid.setText(self.combo_signer.currentText())
         Form_excu.show()
         Form_excu.exec_()
 
@@ -293,11 +293,9 @@ class myProxy(Proxy.Ui_infoview):
         if ret == None:
             MSGBOX("口令错误，验证失败！")   
         else:
-            DelAgent(self.key.key['uuid'],ui.input_proxycancleverify.text(),self.al,self.sock) 
-            self.al.Delete(self.key.key['uuid'])
-            agents = list(self.al.user.keys())
-            for i in range(len(agents)):
-                self.combo_authorizelist.removeItem(i, agents[i])
+            DelAgent(self.key.key['uuid'],self.combo_authorizelist.currentText(),self.al,self.sock) 
+            self.al.Delete(self.combo_authorizelist.currentIndex())
+            self.combo_authorizelist.removeItem(self.combo_authorizelist.currentIndex())
             
 
 

@@ -39,7 +39,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>新建代理需要口令以验证身份</string>
+    <string>撤销授权需要口令以验证身份</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_password">
