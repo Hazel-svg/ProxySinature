@@ -255,7 +255,7 @@ class myProxy(Proxy.Ui_infoview):
             elif code == 0b11:
                 if msg['agree']:
                    self.al.AddUser(msg['suuid'],{'uuid':msg['suuid'],'keypub':msg['keypub']}) 
-            self.sock.agentreq = None
+
 
             #刷新所有下拉列表
             self._loadUserList()
