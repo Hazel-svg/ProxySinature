@@ -112,7 +112,7 @@ class myProxy(Proxy.Ui_infoview):
         self.text_createfile.setText(signame)
 
 
-    def on_excu_btn_clicked(self):  # --------------------执行签名验证
+    def on_excu_btn_clicked(self):  # --------------------执行签名
         Form_excu = QtWidgets.QDialog()
         ui = Ui_signverify()
         ui.setupUi(Form_excu)
@@ -121,10 +121,12 @@ class myProxy(Proxy.Ui_infoview):
 
         passwd = ui.input_signverify.text().encode()
 
+        '''
         ret =  self.key.Dekey(passwd)
         if ret == None:
             MSGBOX("口令错误，验证失败！")
             return
+        '''
         
         self.text_signerUuid_2.setText(self.combo_signer.currentText())
         self.text_agentUuid_2.setText(self.key.key['uuid'])
@@ -140,6 +142,8 @@ class myProxy(Proxy.Ui_infoview):
             MSGBOX("签名程序执行异常！")
             self.text_signeffective_2.setText("签名异常")
             return
+        if ret==0x4001:
+            MSGBOX("口令错误！")
         status = '签名成功' if ret==0 else "签名失败"
         self.text_signeffective_2.setText(status)
         
@@ -242,7 +246,7 @@ class myProxy(Proxy.Ui_infoview):
 
             elif code == 0b11:
                 if msg['agree']:
-                   self.al.AddUser(msg['uuid'],{'uuid':msg['uuid'],'keypub':msg['keypub']}) 
+                   self.al.AddUser(msg['suuid'],{'uuid':msg['uuid'],'keypub':msg['keypub']}) 
             self.sock.agentreq = None
 
             #刷新所有下拉列表
